@@ -8,6 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     var listOfWords = ["viltrume", "avacado", "cabbage", "shrapnel"]
     var incorrectMovesAllowed = 4
     var totalWins = 0 {
@@ -20,6 +21,7 @@ class ViewController: UIViewController {
             newRound()
         }
     }
+    
     @IBOutlet var treeImageView: UIImageView!
     @IBOutlet var correctWordLabel: UILabel!
     @IBOutlet var scoreLabel: UILabel!
@@ -33,9 +35,19 @@ class ViewController: UIViewController {
     
     var currentGame: Game!
     func newRound() {
-        let newWord = listOfWords.removeFirst()
-        currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [])
-        updateUI()
+        if !listOfWords.isEmpty {
+            let newWord = listOfWords.removeFirst()
+            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [])
+            enableLetterButtons(true)
+            updateUI()
+        } else {
+            enableLetterButtons(false)
+        }
+    }
+    func enableLetterButtons(_ enable: Bool) {
+        for button in letterButtons {
+            button.isEnabled = enable
+        }
     }
     
     func updateUI() {
