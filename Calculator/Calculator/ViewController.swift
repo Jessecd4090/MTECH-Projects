@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
    
+    var resultLabelDefault = "0"
+    let operators = ["+", "-", "x", "÷"]
     // Label outlet
     @IBOutlet var resultLabel: UILabel!
     
@@ -25,8 +27,6 @@ class ViewController: UIViewController {
     @IBOutlet var plusButton: UIButton!
     
     @IBOutlet var clearButton: UIButton!
-    
-    var resultLabelDefault = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,7 @@ class ViewController: UIViewController {
             resultLabel.text?.append(number)
         }
     }
+    
     // negative check function
     func negativeCheck(number: String) {
         if var text = resultLabel.text, !text.isEmpty {
@@ -71,8 +72,8 @@ class ViewController: UIViewController {
     func containsDecimal(number: String) {
         let numberText = resultLabel.text
         if !numberText!.isEmpty {
-            let firstChar = String(numberText!.prefix(1))
-            let remaining = String(numberText!.dropFirst(1))
+            let firstChar = String(numberText!.prefix(0))
+            let remaining = String(numberText!.dropFirst())
             resultLabel.text = firstChar + "." + remaining
         } else if (numberText?.count == 1) {
             resultLabel.text?.append(".")
@@ -81,34 +82,31 @@ class ViewController: UIViewController {
     /*
      Button actions here below
      */
+    
     // condition ? expression1 : expression2
     
-    
-    @IBAction func clearButtonTapped(_ sender: UIButton) {
-        
+    //This function updates the clear/AC button to be those titles
+    func updateToClear() {
         if resultLabel.text == "0" {
             clearButton.setTitle("AC", for: .normal)
         } else if resultLabel.text != nil {
-            clearButton.setTitle("Back", for: .normal)
+            clearButton.setTitle("Clear", for: .normal)
             resultLabel.text?.removeLast()
             
-            }
+        }
         if resultLabel.text?.count == 0 {
-            resultLabel.text = "0"
+            resultLabel.text = resultLabelDefault
+            clearButton.setTitle("AC", for: .normal)
         }
-        if clearButton.isHeld {
-            resultLabel.text = "0"
-        }
-        }
-   
-  
+    }
     
-    
-    
-    
-    
-    // resultLabel.text = resultLabelDefault
+    func createTwoNums() {
         
+    }
+    
+    @IBAction func clearButtonTapped(_ sender: UIButton) {
+        updateToClear()
+    }
     
     
     @IBAction func plusMinButtonTapped(_ sender: Any) {
@@ -122,9 +120,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func divisionButtonTapped(_ sender: Any) {
-        if resultLabel.text != "0" {
-          
-        } else {
+        numCheck(number: "÷")
+        if ((resultLabel.text?.contains("÷")) != nil) {
+            divisionButton.isEnabled = false
         }
     }
     
@@ -135,9 +133,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
+        numCheck(number: "+")
+        if resultLabel.text?.contains("+") != nil {
+            plusButton.isEnabled = false
+        }
     }
     
     @IBAction func equalButtonTapped(_ sender: Any) {
+       
     }
     
     @IBAction func decimalButtonTapped(_ sender: Any) {
@@ -145,6 +148,7 @@ class ViewController: UIViewController {
 //        } else {
 //            resultLabel.text?
 //        }
+        
     }
     
     /* Number button actions are here below
@@ -159,54 +163,54 @@ class ViewController: UIViewController {
     
     @IBAction func num1ButtonTapped(_ sender: Any) {
         numCheck(number: "1")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num2ButtonTapped(_ sender: Any) {
         numCheck(number: "2")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num3ButtonTapped(_ sender: Any) {
         numCheck(number: "3")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num4ButtonTapped(_ sender: Any) {
         numCheck(number: "4")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num5ButtonTapped(_ sender: Any) {
         numCheck(number: "5")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num6ButtonTapped(_ sender: Any) {
         numCheck(number: "6")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num7ButtonTapped(_ sender: Any) {
         numCheck(number: "7")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num8ButtonTapped(_ sender: Any) {
         numCheck(number: "8")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num9ButtonTapped(_ sender: Any) {
         numCheck(number: "9")
-        clearButton.setTitle("Back", for: .normal)
+        clearButton.setTitle("Clear", for: .normal)
     }
     
     @IBAction func num0ButtonTapped(_ sender: Any) {
         if resultLabel.text == "0" {
         } else {
             resultLabel.text?.append("0")
-            clearButton.setTitle("Back", for: .normal)
+            clearButton.setTitle("Clear", for: .normal)
         }
     }
 }
