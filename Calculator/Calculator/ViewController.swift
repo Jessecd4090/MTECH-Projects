@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-   
+    
     var resultLabelDefault = "0"
     let operators = ["+", "-", "x", "÷"]
     // Label outlet
@@ -35,48 +35,36 @@ class ViewController: UIViewController {
     
     // Extra functions below
     
-//    func createNumbersForEquation(number1: String, number2: String) -> [String: String]{
-//        if number1 != "0" {
-//            let num1 = resultLabel.text
-//            let num2 = resultLabel.text
-//            let twoNumbers = [num1, num2]
-//        } else {
-//            
-//        }
-//        
-//    }
-    
-    // function to check if the label is empty before assigning a number to it
-    func numCheck(number: String) {
-        if resultLabel.text == resultLabelDefault {
-            if resultLabel.text != nil {
-                resultLabel.text = number
-            }
-        } else {
-            resultLabel.text?.append(number)
-        }
-    }
-    
+    //    func createNumbersForEquation(number1: String, number2: String) -> [String: String]{
+    //        if number1 != "0" {
+    //            let num1 = resultLabel.text
+    //            let num2 = resultLabel.text
+    //            let twoNumbers = [num1, num2]
+    //        } else {
+    //
+    //        }
+    //
+    //    }
     // negative check function
+    
     func negativeCheck(number: String) {
         if var text = resultLabel.text, !text.isEmpty {
-                if text.hasPrefix("-") {
-                    text.removeFirst()
-                } else if resultLabel.text == "0" {
-                } else {
-                    text = "-" + text
-                }
-                resultLabel.text = text
+            if text.hasPrefix("-") {
+                text.removeFirst()
+            } else if resultLabel.text == "0" {
+            } else {
+                text = "-" + text
             }
+            resultLabel.text = text
+        }
     }
     func containsDecimal(number: String) {
-        let numberText = resultLabel.text
-        if !numberText!.isEmpty {
-            let firstChar = String(numberText!.prefix(0))
-            let remaining = String(numberText!.dropFirst())
+        guard let numberText = resultLabel.text else { return }
+        if numberText.contains(".") {
+        } else {
+            let firstChar = String(numberText.prefix(1))
+            let remaining = String(numberText.dropFirst())
             resultLabel.text = firstChar + "." + remaining
-        } else if (numberText?.count == 1) {
-            resultLabel.text?.append(".")
         }
     }
     /*
@@ -100,10 +88,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func createTwoNums() {
-        
-    }
-    
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         updateToClear()
     }
@@ -114,16 +98,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func percentageButtonTapped(_ sender: Any) {
-        if percentageButton.isTouchInside {
-            
-        }
     }
     
     @IBAction func divisionButtonTapped(_ sender: Any) {
-        numCheck(number: "÷")
-        if ((resultLabel.text?.contains("÷")) != nil) {
-            divisionButton.isEnabled = false
-        }
     }
     
     @IBAction func multiplyButtonTapped(_ sender: Any) {
@@ -133,84 +110,25 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
-        numCheck(number: "+")
-        if resultLabel.text?.contains("+") != nil {
-            plusButton.isEnabled = false
-        }
     }
     
     @IBAction func equalButtonTapped(_ sender: Any) {
-       
-    }
-    
-    @IBAction func decimalButtonTapped(_ sender: Any) {
-//        if var text = resultLabel.text?.contains(".") {
-//        } else {
-//            resultLabel.text?
-//        }
         
     }
     
-    /* Number button actions are here below
-     */
-// This was the initial draft of checking the label text, after copying and pasting multiple times, I decided a function would work better
-//        if resultLabel.text == resultLabelDefault {
-//            resultLabel.text = "7"
-//        } else {
-//            resultLabel.text?.append("7")
-//        }
-//    }
-    
-    @IBAction func num1ButtonTapped(_ sender: Any) {
-        numCheck(number: "1")
-        clearButton.setTitle("Clear", for: .normal)
+    @IBAction func decimalButtonTapped(_ sender: Any) {
+        containsDecimal(number: resultLabel.text ?? "")
     }
     
-    @IBAction func num2ButtonTapped(_ sender: Any) {
-        numCheck(number: "2")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num3ButtonTapped(_ sender: Any) {
-        numCheck(number: "3")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num4ButtonTapped(_ sender: Any) {
-        numCheck(number: "4")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num5ButtonTapped(_ sender: Any) {
-        numCheck(number: "5")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num6ButtonTapped(_ sender: Any) {
-        numCheck(number: "6")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num7ButtonTapped(_ sender: Any) {
-        numCheck(number: "7")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num8ButtonTapped(_ sender: Any) {
-        numCheck(number: "8")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num9ButtonTapped(_ sender: Any) {
-        numCheck(number: "9")
-        clearButton.setTitle("Clear", for: .normal)
-    }
-    
-    @IBAction func num0ButtonTapped(_ sender: Any) {
-        if resultLabel.text == "0" {
+    //action for all number buttons as they are typed
+    @IBAction func numberTyped(_ sender: Any) {
+        guard let senderButton = sender as? UIButton else { return }
+        var currentText = resultLabel.text
+        if currentText == resultLabelDefault {
+            currentText = senderButton.title(for: .normal)
         } else {
-            resultLabel.text?.append("0")
-            clearButton.setTitle("Clear", for: .normal)
+            currentText?.append(senderButton.title(for: .normal) ?? "")
         }
+        resultLabel.text = currentText
     }
 }
