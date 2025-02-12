@@ -32,9 +32,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
     // Extra functions below
-    
     //    func createNumbersForEquation(number1: String, number2: String) -> [String: String]{
     //        if number1 != "0" {
     //            let num1 = resultLabel.text
@@ -45,8 +43,8 @@ class ViewController: UIViewController {
     //        }
     //
     //    }
-    // negative check function
     
+    // negative check function
     func negativeCheck(number: String) {
         if var text = resultLabel.text, !text.isEmpty {
             if text.hasPrefix("-") {
@@ -58,6 +56,7 @@ class ViewController: UIViewController {
             resultLabel.text = text
         }
     }
+    
     func containsDecimal(number: String) {
         guard let numberText = resultLabel.text else { return }
         if numberText.contains(".") {
@@ -113,7 +112,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equalButtonTapped(_ sender: Any) {
-        
+        guard let resultLabelText = resultLabel.text else { return }
+        var firstNum = String()
+        for character in resultLabelText {
+            if character.isNumber {
+                firstNum += String(character)
+            }
+        }
     }
     
     @IBAction func decimalButtonTapped(_ sender: Any) {
