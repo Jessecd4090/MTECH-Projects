@@ -50,6 +50,7 @@ class ViewController: UIViewController {
             if text.hasPrefix("-") {
                 text.removeFirst()
             } else if resultLabel.text == "0" {
+                text = "-"
             } else {
                 text = "-" + text
             }
@@ -93,7 +94,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func plusMinButtonTapped(_ sender: Any) {
-        negativeCheck(number: resultLabel.text!)
+        guard let resultLabelText = resultLabel.text else { return }
+        negativeCheck(number: resultLabelText)
     }
     
     @IBAction func percentageButtonTapped(_ sender: Any) {
@@ -113,7 +115,7 @@ class ViewController: UIViewController {
     
     @IBAction func equalButtonTapped(_ sender: Any) {
         guard let resultLabelText = resultLabel.text else { return }
-        var firstNum = String()
+        var firstNum = ""
         for character in resultLabelText {
             if character.isNumber {
                 firstNum += String(character)
