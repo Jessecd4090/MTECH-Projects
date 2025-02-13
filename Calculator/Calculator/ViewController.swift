@@ -10,7 +10,8 @@ import UIKit
 class ViewController: UIViewController {
     
     var resultLabelDefault = "0"
-    let operators = ["+", "-", "x", "÷"]
+   
+    
     // Label outlet
     @IBOutlet var resultLabel: UILabel!
     
@@ -18,15 +19,15 @@ class ViewController: UIViewController {
     
     @IBOutlet var percentageButton: UIButton!
     
+    @IBOutlet var clearButton: UIButton!
+    
     @IBOutlet var divisionButton: UIButton!
     
     @IBOutlet var multiplyButton: UIButton!
     
-    @IBOutlet var minusButton: UIButton!
+    @IBOutlet var subtractButton: UIButton!
     
-    @IBOutlet var plusButton: UIButton!
-    
-    @IBOutlet var clearButton: UIButton!
+    @IBOutlet var additionButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
     // Extra functions below
     //    func createNumbersForEquation(number1: String, number2: String) -> [String: String]{
     //        if number1 != "0" {
+
     //            let num1 = resultLabel.text
     //            let num2 = resultLabel.text
     //            let twoNumbers = [num1, num2]
@@ -87,6 +89,14 @@ class ViewController: UIViewController {
             clearButton.setTitle("AC", for: .normal)
         }
     }
+    func operatorCheck(_ buttonTapped: UIButton) {
+        guard var resultLabelText = resultLabel.text else { return }
+        guard !resultLabelText.hasSuffix("÷"), !resultLabelText.hasSuffix("+"),
+              !resultLabelText.hasSuffix("-"),
+              !resultLabelText.hasSuffix("x") else { return }
+        resultLabelText += buttonTapped.title(for: .normal) ?? ""
+        resultLabel.text = resultLabelText
+    }
     
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         updateToClear()
@@ -102,27 +112,34 @@ class ViewController: UIViewController {
     }
     
     @IBAction func divisionButtonTapped(_ sender: Any) {
+        operatorCheck(divisionButton)
     }
     
     @IBAction func multiplyButtonTapped(_ sender: Any) {
+        operatorCheck(multiplyButton)
     }
     
     @IBAction func minusButtonTapped(_ sender: Any) {
+        operatorCheck(subtractButton)
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
+        operatorCheck(additionButton)
     }
     
     @IBAction func equalButtonTapped(_ sender: Any) {
         guard let resultLabelText = resultLabel.text else { return }
-        var firstNum = ""
+        let operators = ["+", "-", "x", "÷"]
+        var total = ""
+        var num1 = Int()
+        var num2 = Int()
         for character in resultLabelText {
-            if character.isNumber {
-                firstNum += String(character)
+            if let intValue = character.wholeNumberValue {
+                num1 += intValue
             }
+            if operators == character
         }
     }
-    
     @IBAction func decimalButtonTapped(_ sender: Any) {
         containsDecimal(number: resultLabel.text ?? "")
     }
