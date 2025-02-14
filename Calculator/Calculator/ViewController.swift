@@ -128,18 +128,34 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equalButtonTapped(_ sender: Any) {
-        guard let resultLabelText = resultLabel.text else { return }
+        guard let input = resultLabel.text else { return }
         let operators = ["+", "-", "x", "÷"]
-        var total = ""
-        var num1 = Int()
-        var num2 = Int()
-        for character in resultLabelText {
-            if let intValue = character.wholeNumberValue {
-                num1 += intValue
+        var operatorFound = ""
+        for op in operators {
+            if input.contains(op) {
+                operatorFound = op
+                break
             }
-            if operators == character
+        }
+        
+        let parts = input.components(separatedBy: operatorFound)
+        guard let num1 = Double(parts[0]), let num2 = Double(parts[1]) else { return }
+        
+        var result: Double?
+        switch operatorFound {
+        case "+": result = num1 + num2
+        case "-": result = num1 - num2
+        case "x": result = num1 * num2
+        case "÷": result = num1 / num2
+            
+        default: break
+        }
+        
+        if let result = result {
+            resultLabel.text = String(format: "%g", result)
         }
     }
+    
     @IBAction func decimalButtonTapped(_ sender: Any) {
         containsDecimal(number: resultLabel.text ?? "")
     }
