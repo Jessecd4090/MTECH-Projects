@@ -13,6 +13,11 @@ class PersonDetailViewController: UIViewController {
     
     @IBOutlet var ageNumber: UILabel!
     
+    @IBOutlet var occupationLabel: UILabel!
+    
+    @IBOutlet var hobbyLabel: UILabel!
+    var hobbies: String?
+    var occupation: String?
     var selectedImageName: String?
     //these two are to enable me to put the different photos in the imageView
     var personImage: UIImage?
@@ -23,13 +28,11 @@ class PersonDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         personImageView.image = personImage
         ageNumber.text = ageNum
+        occupationLabel.text = occupation
+        hobbyLabel.text = hobbies
+        
     }
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        if identifier == "dadTapped" {
-            personImageView.image = UIImage.jestin
-            ageNumber.text = "48"
-        }
-    }
+   
 //    override func performSegue(withIdentifier identifier: String, sender: Any?) {
 //        if segue.identifier == "dadTapped"
 //        personImageView.image =
