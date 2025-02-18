@@ -13,9 +13,14 @@ class PersonDetailViewController: UIViewController {
     
     @IBOutlet var ageNumber: UILabel!
     
+    @IBOutlet var starSignLabel: UILabel!
+    
     @IBOutlet var occupationLabel: UILabel!
     
+    
     @IBOutlet var hobbyLabel: UILabel!
+    
+    var starSign: String?
     var hobbies: String?
     var occupation: String?
     var selectedImageName: String?
@@ -30,7 +35,7 @@ class PersonDetailViewController: UIViewController {
         ageNumber.text = ageNum
         occupationLabel.text = occupation
         hobbyLabel.text = hobbies
-        
+        starSignLabel.text = starSign
     }
    
 //    override func performSegue(withIdentifier identifier: String, sender: Any?) {
