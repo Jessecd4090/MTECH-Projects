@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         counterLabel.text = String(counterLabelInt)
-        sliderValueLabel.text = String(slider.value)
+        sliderValueLabel.text = "Interval Value: " + String(slider.value)
     }
 
     @IBAction func counterButtonTapped(_ sender: Any) {
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         let roundedValue = sender.value.rounded()
         sender.value = roundedValue
-        sliderValueLabel.text = String(roundedValue)
+        sliderValueLabel.text = "Interval Value: " + String(roundedValue)
         counterInterval = Int(roundedValue)
     }
     

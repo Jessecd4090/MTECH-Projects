@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var listOfWords = ["viltrume", "avacado", "cabbage", "shrapnel"]
+    var listOfWords = ["flabberghasted", "viltrume", "avacado", "cabbage", "shrapnel"]
     var incorrectMovesAllowed = 4
     var totalWins = 0 {
         didSet {
