@@ -10,13 +10,25 @@ import UIKit
 class QuestionViewController: UIViewController {
     
     @IBOutlet var singleStackView: UIStackView!
+    @IBOutlet var singleAnswerButton1: UIButton!
+    @IBOutlet var singleAnswerButton2: UIButton!
+    @IBOutlet var singleAnswerButton3: UIButton!
+    @IBOutlet var singleAnswerButton4: UIButton!
     
     @IBOutlet var multiAnswerStackView: UIStackView!
+    @IBOutlet var multiAnswerLabel1: UILabel!
+    @IBOutlet var multiAnswerLabel2: UILabel!
+    @IBOutlet var multiAnswerLabel3: UILabel!
+    @IBOutlet var multiAnswerLabel4: UILabel!
     
     @IBOutlet var sliderStackView: UIStackView!
+    @IBOutlet var sliderLabel1: UILabel!
+    @IBOutlet var sliderLabel2: UILabel!
+    
     
     @IBOutlet var questionLabel: UILabel!
     
+    @IBOutlet var progressView: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,17 +42,32 @@ class QuestionViewController: UIViewController {
         multiAnswerStackView.isHidden = true
         sliderStackView.isHidden = true
         
-        navigationItem.title = "Question #\(questionIndex + 1)"
+        
         let currentQuestion = questions[questionIndex]
+        let currentAnswers = currentQuestion.answer
+        let totalProgress = Float(questionIndex) / Float(questions.count)
+        
+        navigationItem.title = "Question #\(questionIndex + 1)"
+        questionLabel.text = currentQuestion.text
+        progressView.setProgress(totalProgress, animated: true)
+        
+        
+        
         switch currentQuestion.type {
         case .single:
-            singleStackView.isHidden = false
+            updateSingleStackAnswers(using: currentAnswers)
         case .multiple:
             multiAnswerStackView.isHidden = false
         case .range:
             sliderStackView.isHidden = false
         }
-        questionLabel.text = currentQuestion.text
+        func updateSingleStackAnswers(using answers: [Answers]) {
+            singleStackView.isHidden = false
+            singleAnswerButton1.setTitle(answers[0].text, for: .normal)
+            singleAnswerButton2.setTitle(answers[1].text, for: .normal)
+            singleAnswerButton3.setTitle(answers[2].text, for: .normal)
+            singleAnswerButton4.setTitle(answers[3].text, for: .normal)
+        }
     }
     
     var questionIndex = 0
@@ -49,10 +76,10 @@ class QuestionViewController: UIViewController {
     // playstain, xbox, switch, pc
     var questions: [Question] = [
         Question(
-            text: "What is your go-to relaxation technique?",
+            text: "What is your go to relaxation technique?",
             type: .single,
             answer: [
-                Answers(text: "Selfreflection", type: .playstation),
+                Answers(text: "Self-reflection", type: .playstation),
                 Answers(text: "Spending time connecting with others", type: .xbox),
                 Answers(text: "Taking a nap", type: .ninSwitch),
                 Answers(text: "Learning more about a new topic", type: .pc)

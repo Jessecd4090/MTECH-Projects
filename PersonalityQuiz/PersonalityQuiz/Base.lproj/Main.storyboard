@@ -262,12 +262,28 @@
                             <constraint firstItem="7Aq-av-aoN" firstAttribute="top" secondItem="ZpO-AM-eBy" secondAttribute="top" constant="20" id="go4-Gc-uFf"/>
                             <constraint firstItem="yty-W0-wa2" firstAttribute="leading" secondItem="ZpO-AM-eBy" secondAttribute="leading" constant="20" id="tTZ-jt-xrc"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="yty-W0-wa2"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="6V9-Un-RzL"/>
                     <connections>
+                        <outlet property="multiAnswerLabel1" destination="xac-HF-wEd" id="5fZ-tK-P0L"/>
+                        <outlet property="multiAnswerLabel2" destination="kYE-To-z6P" id="gw4-o2-N2r"/>
+                        <outlet property="multiAnswerLabel3" destination="iyP-Sd-zEW" id="h55-yB-6ib"/>
+                        <outlet property="multiAnswerLabel4" destination="DwW-Yn-KtO" id="tMp-yk-jui"/>
                         <outlet property="multiAnswerStackView" destination="yty-W0-wa2" id="3dx-YZ-cuT"/>
+                        <outlet property="progressView" destination="fVz-TT-0Df" id="TJZ-Yd-YlH"/>
                         <outlet property="questionLabel" destination="7Aq-av-aoN" id="nIL-69-Q37"/>
+                        <outlet property="singleAnswerButton1" destination="VF5-Xk-tkF" id="GSr-7O-5ec"/>
+                        <outlet property="singleAnswerButton2" destination="dO3-u1-OFO" id="dnc-so-cjp"/>
+                        <outlet property="singleAnswerButton3" destination="r4h-fJ-jo0" id="Rub-8b-3yV"/>
+                        <outlet property="singleAnswerButton4" destination="n2d-g5-I7v" id="gyl-nj-6fL"/>
                         <outlet property="singleStackView" destination="e8i-NP-8xA" id="o21-Te-wsB"/>
+                        <outlet property="sliderLabel1" destination="DeT-qW-Hv0" id="Vht-np-rNe"/>
+                        <outlet property="sliderLabel2" destination="yCp-6q-9SC" id="Vgc-UA-iyG"/>
                         <outlet property="sliderStackView" destination="axc-C2-vTw" id="9VN-mc-mLP"/>
                         <segue destination="q8s-8c-jpi" kind="show" identifier="Results" id="175-QA-N6k"/>
                     </connections>
