@@ -18,23 +18,23 @@ enum responseType {
 
 struct Answers {
     var text: String
-    var type: AnimalType
+    var type: GamerType
     
 }
 
-enum AnimalType: Character {
-    case lion = "🦁", cat = "🐱", rabbit = "🐰", turtle = "🐢"
+enum GamerType: Character {
+    case playstation = "􀾈", xbox = "􀾉", ninSwitch = "􂞉", pc = "􀟛"
     
     var definition: String {
         switch self {
-        case .lion:
-            return "You are incredibly outgoing. You surround yourself with the people you love and enjoy activities with your friends."
-        case .cat:
+        case .playstation:
             return "Mischievous, yet mild-tempered, you enjoy doing things on your own terms."
-        case .rabbit:
-            return "You love everything that's soft. You are healthy and full of energy."
-        case .turtle:
-            return "You are wise beyond your years, and you focus on the details. Slow and steady, wins the race."
+        case .xbox:
+            return "You are incredibly outgoing. You surround yourself with the people you love and enjoy activities with your friends."
+        case .ninSwitch:
+            return "You love everything that's soft and sweet. You seek the cute and wholesome things in life."
+        case .pc:
+            return "You are wise beyond your years, and you focus on the details. Willing to compromise convenience to achieve your goals."
         }
     }
 }
