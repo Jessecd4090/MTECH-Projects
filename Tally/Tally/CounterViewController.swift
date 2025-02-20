@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CounterViewController: UIViewController {
 
     
     @IBOutlet var slider: UISlider!
@@ -15,14 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet var sliderValueLabel: UILabel!
     
     @IBOutlet var counterLabel: UILabel!
+    var counterLabelDefault = "0"
+    var sliderLabelDefault = "Interval Value: 1"
     var counterLabelInt = 0
     var counterInterval = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        counterLabel.text = String(counterLabelInt)
-        sliderValueLabel.text = "Interval Value: " + String(slider.value)
+        resetCounter()
     }
 
     @IBAction func counterButtonTapped(_ sender: Any) {
@@ -37,5 +38,17 @@ class ViewController: UIViewController {
         counterInterval = Int(roundedValue)
     }
     
+    @IBAction func resetButtonTapped(_ sender: Any) {
+        resetCounter()
+    }
+    func resetCounter() {
+        if counterLabel.text != counterLabelDefault || sliderValueLabel.text != sliderLabelDefault {
+            counterLabel.text = counterLabelDefault
+            sliderValueLabel.text = sliderLabelDefault
+            slider.value = 1
+            counterInterval = 1
+            counterLabelInt = 0
+        }
+    }
 }
 
