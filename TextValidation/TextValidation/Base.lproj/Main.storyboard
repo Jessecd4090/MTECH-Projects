@@ -84,6 +84,7 @@
                         <outlet property="loginSuccessLabel" destination="MzR-wV-Nwx" id="tzq-7L-2de"/>
                         <outlet property="passwordTextField" destination="YVn-Ta-2QJ" id="2N6-r3-Jrr"/>
                         <outlet property="submitButton" destination="jun-Gf-szX" id="ldR-Wv-PCC"/>
+                        <outlet property="usernameTextField" destination="Q5C-Gz-NoG" id="Uzk-ex-lkB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
     @IBOutlet var errorMessageLabel: UILabel!
@@ -35,7 +36,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func submitButtontapped(_ sender: Any) {
-        guard let passwordTextFieldText = passwordTextField.text else { return }
+        guard let passwordTextFieldText = passwordTextField.text, let usernameTextFieldText = usernameTextField.text else { return }
         
         if passwordTextFieldText.count < 8 {
             errorMessageLabel.isHidden = false
@@ -43,6 +44,7 @@ class ViewController: UIViewController {
             loginSuccessLabel.isHidden = true
             return
         }
+        // have a couple questions
         if !passwordTextFieldText.contains(where: { specialCharacters.contains($0) }) {
             errorMessageLabel.isHidden = false
             errorMessageLabel.text = "ERROR!!: The password must contain a special character."
