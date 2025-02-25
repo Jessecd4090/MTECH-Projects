@@ -24,9 +24,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         updateUI()
-        loginSuccessLabel.layer.cornerRadius = 10
+        loginSuccessLabel.layer.cornerRadius = 20
         loginSuccessLabel.layer.masksToBounds = true
-        errorMessageLabel.layer.cornerRadius = 10
+        errorMessageLabel.layer.cornerRadius = 20
         errorMessageLabel.layer.masksToBounds = true
     }
     
