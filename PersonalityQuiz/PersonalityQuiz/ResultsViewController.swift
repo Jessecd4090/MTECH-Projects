@@ -33,10 +33,26 @@ class ResultsViewController: UIViewController {
 //        let attrString = NSAttributedString(string: "You are a ", attributes: [.imageURL: mostCommonAnswer.rawValue])
         
         
-        resultsAnswerLabel.text = "You are a \(mostCommonAnswer.rawValue)!"
-//        resultsAnswerLabel.text = "you are 😂"
-//        resultsAnswerLabel.text = attrString.string
+//        resultsAnswerLabel.text = "You are a \(mostCommonAnswer.rawValue)!"
+        resultsAnswerLabel.attributedText = self.createAttributedString(with: "You are a ", symbolName: mostCommonAnswer.rawValue)
         resultsDefinitionLabel.text = mostCommonAnswer.definition
+    }
+    
+    func createAttributedString(with text: String, symbolName: String) -> NSAttributedString {
+        let symbolImage = UIImage(systemName: symbolName)
+        
+        let attachment = NSTextAttachment()
+        attachment.image = symbolImage?.withRenderingMode(.alwaysTemplate)
+        let imageString = NSAttributedString(attachment: attachment)
+        
+        let attributedString = NSMutableAttributedString()
+        
+        let textString = NSAttributedString(string: " \(text)", attributes: [.font: UIFont.systemFont(ofSize: 50)])
+        attributedString.append(textString)
+        
+        attributedString.append(imageString)
+        
+        return attributedString
     }
     
     init?(coder: NSCoder, responses: [Answers]) {

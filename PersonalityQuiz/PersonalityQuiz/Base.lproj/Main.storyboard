@@ -3,8 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,7 +19,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="1ek-UZ-9xO">
                                 <rect key="frame" x="8" y="379.33333333333331" width="377" height="93.666666666666686"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What Animal Are You?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ok1-OY-7PQ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What Gamer Are You?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ok1-OY-7PQ">
                                         <rect key="frame" x="0.0" y="0.0" width="377" height="34.333333333333336"/>
                                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="30"/>
                                         <nil key="textColor"/>
@@ -35,61 +35,53 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🦊" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2P-aX-GiZ">
-                                <rect key="frame" x="20" y="79" width="45" height="45"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oT8-Gl-gfy">
+                                <rect key="frame" x="20" y="76.333333333333314" width="45" height="50.666666666666671"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="ubp-Aw-bTn"/>
-                                    <constraint firstAttribute="height" constant="45" id="uno-Ei-lva"/>
+                                    <constraint firstAttribute="width" constant="45" id="5P6-Hk-HBo"/>
+                                    <constraint firstAttribute="height" constant="45" id="KbB-Nm-zlw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahz-Wg-gJZ">
-                                <rect key="frame" x="328" y="79" width="45" height="45"/>
+                                <imageReference key="image" image="playstation.logo" catalog="system" symbolScale="large"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-hq-qtb">
+                                <rect key="frame" x="328" y="76" width="45" height="51"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="RG9-LZ-YQE"/>
-                                    <constraint firstAttribute="width" constant="45" id="uWX-X9-lGB"/>
+                                    <constraint firstAttribute="height" constant="45" id="L87-Fb-v1w"/>
+                                    <constraint firstAttribute="width" constant="45" id="rDh-LJ-65T"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🦔" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc5-ot-lcA">
-                                <rect key="frame" x="20" y="753" width="45" height="45"/>
+                                <imageReference key="image" image="xbox.logo" catalog="system" symbolScale="large"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kn9-gi-FH2">
+                                <rect key="frame" x="20" y="752.66666666666663" width="45" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="85R-ox-7bj"/>
-                                    <constraint firstAttribute="height" constant="45" id="Rcm-td-0fK"/>
+                                    <constraint firstAttribute="height" constant="45" id="FlG-bZ-u9r"/>
+                                    <constraint firstAttribute="width" constant="45" id="lza-0V-vPP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4N-2L-dvq">
-                                <rect key="frame" x="328" y="753" width="45" height="45"/>
+                                <imageReference key="image" image="laptopcomputer" catalog="system" symbolScale="large"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jal-AI-b1b">
+                                <rect key="frame" x="328" y="753" width="45" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="goI-Sv-7To"/>
-                                    <constraint firstAttribute="height" constant="45" id="lDA-uJ-RpC"/>
+                                    <constraint firstAttribute="width" constant="45" id="Pga-a5-M1c"/>
+                                    <constraint firstAttribute="height" constant="45" id="lfc-h0-1ot"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <imageReference key="image" image="formfitting.gamecontroller.fill" catalog="system" symbolScale="large"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemMintColor"/>
+                        <color key="backgroundColor" red="0.58811812450000001" green="1" blue="0.33397791119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="n4N-2L-dvq" secondAttribute="trailing" constant="20" id="2Bn-zH-xC6"/>
-                            <constraint firstItem="oc5-ot-lcA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4FY-S9-L9b"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1ek-UZ-9xO" secondAttribute="trailing" constant="8" id="4Uz-aD-nNF"/>
                             <constraint firstItem="1ek-UZ-9xO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="A7p-DK-w1E"/>
-                            <constraint firstItem="j2P-aX-GiZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="MgH-gV-71P"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oc5-ot-lcA" secondAttribute="bottom" constant="20" id="YWb-0W-XA2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="n4N-2L-dvq" secondAttribute="bottom" constant="20" id="Yea-iD-hCY"/>
+                            <constraint firstItem="oT8-Gl-gfy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Fwz-eW-qo8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1vE-hq-qtb" secondAttribute="trailing" constant="20" id="K07-ON-gFa"/>
+                            <constraint firstItem="kn9-gi-FH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="LiK-8b-BfX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jal-AI-b1b" secondAttribute="trailing" constant="20" id="aWs-BB-tFL"/>
+                            <constraint firstItem="oT8-Gl-gfy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dax-zX-jAP"/>
                             <constraint firstItem="1ek-UZ-9xO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="kaW-k3-QlD"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ahz-Wg-gJZ" secondAttribute="trailing" constant="20" id="nnW-HN-l8N"/>
-                            <constraint firstItem="j2P-aX-GiZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pbE-Pz-2fZ"/>
-                            <constraint firstItem="Ahz-Wg-gJZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="zGL-Vt-AEP"/>
+                            <constraint firstItem="1vE-hq-qtb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="nya-99-Oco"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jal-AI-b1b" secondAttribute="bottom" constant="20" id="vEC-WO-sfj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kn9-gi-FH2" secondAttribute="bottom" constant="20" id="wTr-gK-f2K"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -377,12 +369,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbu-hs-iFD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="794.6564885496183" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="947" y="5"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="formfitting.gamecontroller.fill" catalog="system" width="128" height="64"/>
+        <image name="laptopcomputer" catalog="system" width="128" height="71"/>
+        <image name="playstation.logo" catalog="system" width="128" height="93"/>
+        <image name="xbox.logo" catalog="system" width="128" height="123"/>
     </resources>
 </document>
