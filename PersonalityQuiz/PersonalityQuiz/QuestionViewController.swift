@@ -168,70 +168,70 @@ class QuestionViewController: UIViewController {
             text: "What is your go to relaxation technique?",
             type: .single,
             answer: [
-                Answers(text: "Self-reflection", type: .playstation),
-                Answers(text: "Spending time connecting with others", type: .xbox),
-                Answers(text: "Taking a nap", type: .ninSwitch),
-                Answers(text: "Learning more about a new topic", type: .pc)
+                Answers(text: "Self-reflection", type: .fox),
+                Answers(text: "Spending time connecting with others", type: .penguin),
+                Answers(text: "Taking a nap", type: .hedgehog),
+                Answers(text: "Learning more about a new topic", type: .elephant)
             ]
         ),
         Question(
             text: "Which season do you enjoy the most?",
             type: .single,
             answer: [
-                Answers(text: "Winter", type: .playstation),
-                Answers(text: "Fall", type: .pc),
-                Answers(text: "Spring", type: .xbox),
-                Answers(text: "Summer", type: .ninSwitch)
+                Answers(text: "Winter", type: .fox),
+                Answers(text: "Fall", type: .elephant),
+                Answers(text: "Spring", type: .penguin),
+                Answers(text: "Summer", type: .hedgehog)
             ]
         ),
         Question(
             text: "What color do you identify with best?",
             type: .single,
             answer: [
-                Answers(text: "Black", type: .pc),
-                Answers(text: "Red", type: .ninSwitch),
-                Answers(text: "Yellow", type: .xbox),
-                Answers(text: "Blue", type: .playstation)
+                Answers(text: "Black", type: .elephant),
+                Answers(text: "Red", type: .hedgehog),
+                Answers(text: "Yellow", type: .penguin),
+                Answers(text: "Blue", type: .fox)
             ]
         ),
         Question(
             text: "Why do you enjoy gaming?",
             type: .multiple,
             answer: [
-                Answers(text: "Being around others", type: .xbox),
-                Answers(text: "Stress-relief", type: .playstation),
-                Answers(text: "Love just playing to enjoy the journey", type: .ninSwitch),
-                Answers(text: "Challenging yourself to new situations", type: .pc)
+                Answers(text: "Being around others", type: .penguin),
+                Answers(text: "Stress-relief", type: .fox),
+                Answers(text: "Love just playing to enjoy the journey", type: .hedgehog),
+                Answers(text: "Challenging yourself to new situations", type: .elephant)
             ]
         ),
         Question(
             text: "What is your favorite holiday?",
             type: .multiple,
             answer: [
-                Answers(text: "Christmas", type: .playstation),
-                Answers(text: "Halloween", type: .xbox),
-                Answers(text: "New Years", type: .pc),
-                Answers(text: "Fourth of July", type: .ninSwitch)
+                Answers(text: "Christmas", type: .penguin),
+                Answers(text: "Halloween", type: .fox),
+                Answers(text: "New Years", type: .elephant),
+                Answers(text: "Fourth of July", type: .hedgehog)
             ]
         ),
         Question(
             text: "How social are you in most situations?",
             type: .range,
             answer: [
-                Answers(text: "I am not social active", type: .playstation),
-                Answers(text: "I am somewhat not social", type: .pc),
-                Answers(text: "I am somewhat social", type: .ninSwitch),
-                Answers(text: "I am very social", type: .xbox)
+                Answers(text: "I am not social active", type: .fox),
+                Answers(text: "I am somewhat not social", type: .elephant),
+                Answers(text: "I am somewhat social", type: .hedgehog),
+                Answers(text: "I am very social", type: .penguin)
             ]
         ),
         Question(
             text: "How active are you usually?",
             type: .range,
             answer: [
-                Answers(text: "I am not active", type: .playstation),
-                Answers(text: "I am somewhat in-active", type: .pc),
-                Answers(text: "I am somewhat active", type: .xbox),
-                Answers(text: "I am very active", type: .ninSwitch)
+                Answers(text: "I am not active", type: .fox),
+                Answers(text: "I am somewhat in-active", type: .elephant),
+                Answers(text: "I am somewhat active", type: .penguin),
+                Answers(text: "I am very active", type: .hedgehog)
             ]
         ),
         

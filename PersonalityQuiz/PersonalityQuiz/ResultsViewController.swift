@@ -30,7 +30,12 @@ class ResultsViewController: UIViewController {
         
         let mostCommonAnswer = frequencyOfAnswers.sorted { $0.1 > $1.1 }.first!.key
         
+//        let attrString = NSAttributedString(string: "You are a ", attributes: [.imageURL: mostCommonAnswer.rawValue])
+        
+        
         resultsAnswerLabel.text = "You are a \(mostCommonAnswer.rawValue)!"
+//        resultsAnswerLabel.text = "you are 😂"
+//        resultsAnswerLabel.text = attrString.string
         resultsDefinitionLabel.text = mostCommonAnswer.definition
     }
     

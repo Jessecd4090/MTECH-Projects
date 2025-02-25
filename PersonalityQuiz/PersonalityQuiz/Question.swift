@@ -22,18 +22,18 @@ struct Answers {
     
 }
 
-enum GamerType: Character {
-    case playstation = "􀾈", xbox = "􀾉", ninSwitch = "􂞉", pc = "􀟛"
+enum GamerType: String {
+    case fox = "🦊", penguin = "🐧", hedgehog = "🦔", elephant = "🐘"
     
     var definition: String {
         switch self {
-        case .playstation:
+        case .fox:
             return "Mischievous, yet mild-tempered, you enjoy doing things on your own terms."
-        case .xbox:
+        case .penguin:
             return "You are incredibly outgoing. You surround yourself with the people you love and enjoy activities with your friends."
-        case .ninSwitch:
+        case .hedgehog:
             return "You love everything that's soft and sweet. You seek the cute and wholesome things in life."
-        case .pc:
+        case .elephant:
             return "You are wise beyond your years, and you focus on the details. Willing to compromise convenience to achieve your goals."
         }
     }

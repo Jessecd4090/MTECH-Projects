@@ -137,7 +137,7 @@
         <!--Posts-->
         <scene sceneID="eHQ-Cc-ePv">
             <objects>
-                <viewController id="x3t-jm-g9e" sceneMemberID="viewController">
+                <viewController id="x3t-jm-g9e" customClass="PostsViewController" customModule="Tech_chat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NcQ-td-XwD">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,7 +149,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5i-uL-AON">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -194,6 +194,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Crn-lp-Fw1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SHy-OY-OHY">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
