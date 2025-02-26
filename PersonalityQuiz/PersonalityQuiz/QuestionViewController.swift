@@ -9,11 +9,13 @@ import UIKit
 
 class QuestionViewController: UIViewController {
     
+    
     @IBOutlet var singleStackView: UIStackView!
     @IBOutlet var singleAnswerButton1: UIButton!
     @IBOutlet var singleAnswerButton2: UIButton!
     @IBOutlet var singleAnswerButton3: UIButton!
     @IBOutlet var singleAnswerButton4: UIButton!
+    
     
     @IBOutlet var multiAnswerStackView: UIStackView!
     @IBOutlet var multiAnswerLabel1: UILabel!
@@ -24,6 +26,7 @@ class QuestionViewController: UIViewController {
     @IBOutlet var multiAnswerSwitch3: UISwitch!
     @IBOutlet var multiAnswerLabel4: UILabel!
     @IBOutlet var multiAnswerSwitch4: UISwitch!
+    
     
     @IBOutlet var sliderStackView: UIStackView!
     @IBOutlet var sliderLabel1: UILabel!
@@ -43,6 +46,8 @@ class QuestionViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         updateUI()
+        questionLabel.layer.cornerRadius = 22
+        questionLabel.layer.masksToBounds = true
     }
     
     @IBAction func singleAnswerButtonTapped(_ sender: UIButton) {
@@ -168,70 +173,70 @@ class QuestionViewController: UIViewController {
             text: "What is your go to relaxation technique?",
             type: .single,
             answer: [
-                Answers(text: "Self-reflection", type: .playstation),
-                Answers(text: "Spending time connecting with others", type: .xbox),
-                Answers(text: "Taking a nap", type: .ninSwitch),
-                Answers(text: "Learning more about a new topic", type: .pc)
+                Answers(text: "Self-reflection", type: .fox),
+                Answers(text: "Spending time connecting with others", type: .penguin),
+                Answers(text: "Taking a nap", type: .hedgehog),
+                Answers(text: "Learning more about a new topic", type: .elephant)
             ]
         ),
         Question(
             text: "How social are you in most situations?",
             type: .range,
             answer: [
-                Answers(text: "I am not social active", type: .playstation),
-                Answers(text: "I am somewhat not social", type: .pc),
-                Answers(text: "I am somewhat social", type: .ninSwitch),
-                Answers(text: "I am very social", type: .xbox)
+                Answers(text: "I am not social active", type: .fox),
+                Answers(text: "I am somewhat not social", type: .elephant),
+                Answers(text: "I am somewhat social", type: .hedgehog),
+                Answers(text: "I am very social", type: .penguin)
             ]
         ),
         Question(
-            text: "What color do you identify with best?",
+            text: "What is you favorite weather?",
             type: .single,
             answer: [
-                Answers(text: "Black", type: .pc),
-                Answers(text: "Red", type: .ninSwitch),
-                Answers(text: "Yellow", type: .xbox),
-                Answers(text: "Blue", type: .playstation)
+                Answers(text: "Thunderstorms", type: .elephant),
+                Answers(text: "Sunny days", type: .hedgehog),
+                Answers(text: "Warm rain", type: .penguin),
+                Answers(text: "Snowy days", type: .fox)
             ]
         ),
         Question(
-            text: "Why do you enjoy gaming?",
-            type: .multiple,
+            text: "Do you enjoy gaming?",
+            type: .range,
             answer: [
-                Answers(text: "Being around others", type: .xbox),
-                Answers(text: "Stress-relief", type: .playstation),
-                Answers(text: "Love just playing to enjoy the journey", type: .ninSwitch),
-                Answers(text: "Challenging yourself to new situations", type: .pc)
+                Answers(text: "Not at all", type: .penguin),
+                Answers(text: "I enjoy gaming", type: .fox),
+                Answers(text: "I don't enjoy gaming", type: .hedgehog),
+                Answers(text: "Very much", type: .elephant)
             ]
         ),
         Question(
             text: "Which season do you enjoy the most?",
             type: .single,
             answer: [
-                Answers(text: "Winter", type: .playstation),
-                Answers(text: "Fall", type: .pc),
-                Answers(text: "Spring", type: .xbox),
-                Answers(text: "Summer", type: .ninSwitch)
+                Answers(text: "Winter", type: .fox),
+                Answers(text: "Fall", type: .elephant),
+                Answers(text: "Spring", type: .penguin),
+                Answers(text: "Summer", type: .hedgehog)
             ]
         ),
         Question(
             text: "What is your favorite holiday?",
             type: .multiple,
             answer: [
-                Answers(text: "Christmas", type: .xbox),
-                Answers(text: "Halloween", type: .playstation),
-                Answers(text: "New Years", type: .pc),
-                Answers(text: "Fourth of July", type: .ninSwitch)
+                Answers(text: "Christmas", type: .penguin),
+                Answers(text: "Halloween", type: .fox),
+                Answers(text: "New Years", type: .elephant),
+                Answers(text: "Fourth of July", type: .hedgehog)
             ]
         ),
         Question(
             text: "How active are you usually?",
             type: .range,
             answer: [
-                Answers(text: "I am not active", type: .playstation),
-                Answers(text: "I am somewhat in-active", type: .pc),
-                Answers(text: "I am somewhat active", type: .xbox),
-                Answers(text: "I am very active", type: .ninSwitch)
+                Answers(text: "I am not active", type: .fox),
+                Answers(text: "I am somewhat in-active", type: .elephant),
+                Answers(text: "I am somewhat active", type: .penguin),
+                Answers(text: "I am very active", type: .hedgehog)
             ]
         ),
         

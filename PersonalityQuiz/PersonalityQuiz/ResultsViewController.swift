@@ -13,13 +13,16 @@ class ResultsViewController: UIViewController {
     @IBOutlet var resultsAnswerLabel: UILabel!
     @IBOutlet var resultsDefinitionLabel: UILabel!
     
-
+    @IBOutlet var resultsSlackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     calculatePersonalityResult()
         // Do any additional setup after loading the view.
         navigationItem.hidesBackButton = true
+        resultsSlackView.layer.cornerRadius = 25
+        resultsSlackView.layer.masksToBounds = true
     }
     func calculatePersonalityResult() {
         let frequencyOfAnswers = responses.reduce(into: [:]) {
@@ -34,26 +37,11 @@ class ResultsViewController: UIViewController {
         
         
 //        resultsAnswerLabel.text = "You are a \(mostCommonAnswer.rawValue)!"
-        resultsAnswerLabel.attributedText = self.createAttributedString(with: "You are a ", symbolName: mostCommonAnswer.rawValue)
+        resultsAnswerLabel.text = "You are a " + mostCommonAnswer.rawValue
         resultsDefinitionLabel.text = mostCommonAnswer.definition
     }
     
-    func createAttributedString(with text: String, symbolName: String) -> NSAttributedString {
-        let symbolImage = UIImage(systemName: symbolName)
-        
-        let attachment = NSTextAttachment()
-        attachment.image = symbolImage?.withRenderingMode(.alwaysTemplate)
-        let imageString = NSAttributedString(attachment: attachment)
-        
-        let attributedString = NSMutableAttributedString()
-        
-        let textString = NSAttributedString(string: " \(text)", attributes: [.font: UIFont.systemFont(ofSize: 50)])
-        attributedString.append(textString)
-        
-        attributedString.append(imageString)
-        
-        return attributedString
-    }
+    
     
     init?(coder: NSCoder, responses: [Answers]) {
         self.responses = responses
