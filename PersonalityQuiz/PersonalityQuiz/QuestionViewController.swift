@@ -46,8 +46,14 @@ class QuestionViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         updateUI()
-        questionLabel.layer.cornerRadius = 22
+        questionLabel.layer.cornerRadius = 20
         questionLabel.layer.masksToBounds = true
+        multiAnswerStackView.layer.cornerRadius = 20
+        multiAnswerStackView.layer.masksToBounds = true
+        sliderLabel1.layer.cornerRadius = 6
+        sliderLabel1.layer.masksToBounds = true
+        sliderLabel2.layer.cornerRadius = 6
+        sliderLabel2.layer.masksToBounds = true
     }
     
     @IBAction func singleAnswerButtonTapped(_ sender: UIButton) {
@@ -200,13 +206,13 @@ class QuestionViewController: UIViewController {
             ]
         ),
         Question(
-            text: "Do you enjoy gaming?",
+            text: "When in the year were you born?",
             type: .range,
             answer: [
-                Answers(text: "Not at all", type: .penguin),
-                Answers(text: "I enjoy gaming", type: .fox),
-                Answers(text: "I don't enjoy gaming", type: .hedgehog),
-                Answers(text: "Very much", type: .elephant)
+                Answers(text: "January", type: .fox),
+                Answers(text: "April", type: .penguin),
+                Answers(text: "October", type: .hedgehog),
+                Answers(text: "December", type: .elephant)
             ]
         ),
         Question(
@@ -220,7 +226,7 @@ class QuestionViewController: UIViewController {
             ]
         ),
         Question(
-            text: "What is your favorite holiday?",
+            text: "What are your favorite holidays?",
             type: .multiple,
             answer: [
                 Answers(text: "Christmas", type: .penguin),
