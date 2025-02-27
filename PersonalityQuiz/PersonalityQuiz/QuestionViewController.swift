@@ -38,7 +38,8 @@ class QuestionViewController: UIViewController {
     
     @IBOutlet var progressView: UIProgressView!
     
-    //this is to store the answers so I can continue through the quiz
+    
+// MARK: This is to store answers so they can move to the next question
     var answersChosen: [Answers] = []
     
     override func viewDidLoad() {
