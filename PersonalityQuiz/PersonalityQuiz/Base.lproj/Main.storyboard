@@ -19,7 +19,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="1ek-UZ-9xO">
                                 <rect key="frame" x="8" y="379.33333333333331" width="377" height="93.666666666666686"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What Animal Are You?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ok1-OY-7PQ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What Animal Are You?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ok1-OY-7PQ">
                                         <rect key="frame" x="0.0" y="0.0" width="377" height="34.333333333333336"/>
                                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="30"/>
                                         <nil key="textColor"/>
@@ -320,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ONo-SW-bhp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1721.3740458015266" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="1605" y="5"/>
         </scene>
         <!--Results-->
         <scene sceneID="zB3-zf-0VE">
@@ -358,7 +358,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Results" largeTitleDisplayMode="always" id="ilA-GI-7jD">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="q0r-6d-05W">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="q0r-6d-05W">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="0Sk-8m-99h">
                                 <rect key="frame" x="290" y="10.666666666666664" width="87" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -379,7 +379,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFa-zI-Emf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Azk-R8-02f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2521.3740458015268" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="2300" y="5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="P8F-1G-R3f">
@@ -398,7 +398,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbu-hs-iFD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="947" y="5"/>
+            <point key="canvasLocation" x="871" y="5"/>
         </scene>
     </scenes>
     <resources>
