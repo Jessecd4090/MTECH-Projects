@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ISpy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="psl-J0-hg4">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grotto" translatesAutoresizingMaskIntoConstraints="NO" id="GLj-X6-0bF">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="GLj-X6-0bF" firstAttribute="top" secondItem="lrJ-iO-iik" secondAttribute="top" id="5pZ-Ya-Pxe"/>
+                                    <constraint firstItem="GLj-X6-0bF" firstAttribute="leading" secondItem="lrJ-iO-iik" secondAttribute="leading" id="bJb-fr-SOa"/>
+                                    <constraint firstItem="GLj-X6-0bF" firstAttribute="trailing" secondItem="lrJ-iO-iik" secondAttribute="trailing" id="mlK-9u-N2O"/>
+                                    <constraint firstItem="GLj-X6-0bF" firstAttribute="bottom" secondItem="lrJ-iO-iik" secondAttribute="bottom" id="pnR-jH-lUh"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="FiA-oG-WCG"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="lrJ-iO-iik"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="psl-J0-hg4" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="4Qj-mA-cQk"/>
+                            <constraint firstItem="psl-J0-hg4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mat-Wy-Ftw"/>
+                            <constraint firstItem="psl-J0-hg4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qru-o6-ooX"/>
+                            <constraint firstItem="psl-J0-hg4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="v4u-h9-SEj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="GLj-X6-0bF" id="NZh-ql-Hbe"/>
+                        <outlet property="scrollView" destination="psl-J0-hg4" id="XP5-eQ-v7G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139.69465648854961" y="3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Grotto" width="480" height="640"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
