@@ -27,14 +27,16 @@ class ViewController: UIViewController {
             self.cvv = cvv
         }
     }
-    
-    protocol Card {
-        func validCardNumber()
+    protocol CardNumCheck {
         func creditCardCheck()
+    }
+    protocol CardIsValid {
+        func validCardNumber()
+       
     }
     
     //this checks to be sure that there is a card on file
-    class cardOnFile: Card {
+    class cardOnFile: CardIsValid, CardNumCheck {
         func validCardNumber() {
             print("The card is a valid credit card")
         }
