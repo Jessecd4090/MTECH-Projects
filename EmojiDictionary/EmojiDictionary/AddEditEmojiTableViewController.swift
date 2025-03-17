@@ -87,7 +87,7 @@ class AddEditEmojiTableViewController: UITableViewController {
     
         
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "saveUnwind", sender: sender)
+        performSegue(withIdentifier: "saveUnwind", sender: self)
     }
     
     
