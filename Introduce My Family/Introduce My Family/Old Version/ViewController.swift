@@ -79,26 +79,5 @@ class ViewController: UIViewController {
                 destinationVC.hobbies = "Loves to spend time learning how different aspects of the music industry work, and how he can become part of it."
             }
         }
-//            case "Mom":
-//                segue.destination.navigationItem.title = "Heather Dorius"
-//                destinationVC.ageNumber.text = "48"
-//            case "Older Sister":
-//                segue.destination.navigationItem.title = "Emmalee Dorius"
-//            case "Older Brother":
-//                segue.destination.navigationItem.title = "Cody Dorius"
-//            case "Me":
-//                segue.destination.navigationItem.title = "Jestin C. Dorius"
-//            case "Younger Brother":
-//                segue.destination.navigationItem.title = "Caleb N. Dorius"
-//                
-//            default: break
-            }
-        }
-//        if segue.identifier == "dadTapped" {
-//            segue.destination.navigationItem.title = "Jestin"
-//            destinationVC.personImageView = "Jestin"
-//        } else if segue.identifier == "momTapped" {
-//            segue.destination.navigationItem.title = "Heather"
-//        }
-    
-
+    }
+}

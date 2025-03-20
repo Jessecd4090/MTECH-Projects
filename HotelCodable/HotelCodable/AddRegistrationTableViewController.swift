@@ -9,11 +9,13 @@ import UIKit
 
 class AddRegistrationTableViewController: UITableViewController {
 
+    var roomType: RoomType?
+    
     @IBOutlet weak var firstNameTextField: UITextField!
-    
     @IBOutlet weak var lastNameTextField: UITextField!
-    
     @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var roomTypeDetailLabel: UILabel!
     
     @IBOutlet weak var checkInDateLabel: UILabel!
     @IBOutlet weak var checkInDatePicker: UIDatePicker!
@@ -36,6 +38,7 @@ class AddRegistrationTableViewController: UITableViewController {
         }
     }
     
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,12 +48,21 @@ class AddRegistrationTableViewController: UITableViewController {
         
         
         updateDateViews()
+        updateRoomType()
     }
     
     @IBAction func datePickerValueChanged(_ sender: Any) {
         updateDateViews()
     }
     
+    @IBSegueAction func segueToRoomTypeSelection(_ coder: NSCoder) -> RoomTypeSelectionTableViewController? {
+        let roomTypeSelectionVC = RoomTypeSelectionTableViewController(coder: coder)
+        
+        roomTypeSelectionVC?.roomType = self.roomType
+        roomTypeSelectionVC.delegate = self
+        
+        return roomTypeSelectionVC
+    }
     
     @IBAction func doneBarButtonTapped(_ sender: Any) {
         let firstName = firstNameTextField.text ?? ""
@@ -63,10 +75,18 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     func updateDateViews() {
+        
+        checkOutDatePicker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: checkInDatePicker.date + 14)
         checkInDateLabel.text = checkInDatePicker.date.formatted(date: .abbreviated, time: .omitted)
         checkOutDateLabel.text = checkOutDatePicker.date.formatted(date: .abbreviated, time: .omitted)
-        
-        checkOutDatePicker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: checkInDatePicker.date)
+    }
+    
+    func updateRoomType() {
+        if let roomType = self.roomType {
+            roomTypeDetailLabel.text = roomType.name
+        } else {
+            roomTypeDetailLabel.text = "Not Set"
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -96,15 +116,25 @@ class AddRegistrationTableViewController: UITableViewController {
             
         } else if indexPath == checkOutDateLabelIndexPath && isCheckOutDatePickerVisible == false {
             isCheckOutDatePickerVisible.toggle()
+            
+        } else if indexPath == checkInDateLabelIndexPath {
+            isCheckInDatePickerVisible.toggle()
+        } else if indexPath == checkOutDateLabelIndexPath {
             isCheckOutDatePickerVisible.toggle()
-            
-        } else if indexPath == checkInDateLabelIndexPath || indexPath == checkOutDateLabelIndexPath {
-            
         } else {
             return
         }
         
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+}
+
+//MARK: EXTENSION
+
+extension AddRegistrationTableViewController: RoomTypeSelectionDelegate {
+    func RoomTypeSelectionTableViewController(_ controller: RoomTypeSelectionTableViewController, didSelectRoomType roomType: RoomType) {
+        self.roomType = roomType
+        updateRoomType()
     }
 }

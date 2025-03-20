@@ -30,4 +30,11 @@ struct RoomType: Equatable {
     static func ==(lhs: RoomType, rhs: RoomType) -> Bool {
         return lhs.id == rhs.id
     }
+    
+    static var all: [RoomType] {
+        return [
+            RoomType(id: 0, name: "Two Queens", shortName: "2Q", price: 279),
+            RoomType(id: 1, name: "One King", shortName: "1K", price: 209),
+            RoomType(id: 2, name: "Penthouse", shortName: "PHS", price: 309)]
+    }
 }
