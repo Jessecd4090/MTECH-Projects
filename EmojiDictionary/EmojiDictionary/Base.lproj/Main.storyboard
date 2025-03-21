@@ -219,13 +219,13 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="qER-Hc-nSn">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="8mm-ce-fWG">
                             <connections>
-                                <segue destination="4O9-2h-gqF" kind="unwind" identifier="" unwindAction="unwindToEmojiTableView:" id="2PR-cL-3bJ"/>
+                                <segue destination="4O9-2h-gqF" kind="unwind" unwindAction="unwindToEmojiTableViewWithSegue:" id="bl8-YB-HPe"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="cVz-8u-6WG">
                             <connections>
                                 <action selector="saveButtonTapped:" destination="JoA-4D-8ej" id="B8w-4q-gdR"/>
-                                <segue destination="4O9-2h-gqF" kind="unwind" identifier="saveUnwind" unwindAction="unwindToEmojiTableView:" id="1Op-J7-pae"/>
+                                <segue destination="4O9-2h-gqF" kind="unwind" unwindAction="unwindToEmojiTableViewWithSegue:" id="f0p-th-Qid"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
