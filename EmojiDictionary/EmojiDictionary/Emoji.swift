@@ -11,7 +11,6 @@ struct Emoji: Codable {
     var symbol: String
     var name: String
     var description: String
-    var type: String?
     var usage: String
 
     // Static method to save emojis to a file

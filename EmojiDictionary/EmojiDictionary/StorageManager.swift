@@ -24,10 +24,10 @@ class StorageManager {
     }
     
     func loadFromFile() -> [Emoji] {
-        guard let EmojiData = try? Data(contentsOf: saveFilePath) else { return [] }
+        guard let emojiData = try? Data(contentsOf: saveFilePath) else { return [] }
         let decoder = PropertyListDecoder()
         do {
-            let emojis = try decoder.decode([Emoji].self, from: EmojiData)
+            let emojis = try decoder.decode([Emoji].self, from: emojiData)
             self.emojis = emojis
             return emojis
         } catch {
