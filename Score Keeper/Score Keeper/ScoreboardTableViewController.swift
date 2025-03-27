@@ -10,31 +10,42 @@ import UIKit
 class ScoreboardTableViewController: UITableViewController {
 
     
-    var players: [Player] = [] {
+    var players: [Player] = [
+        Player(userImage: UIImage(systemName: "person.circle.fill")!,
+               name: "Player 1",
+               currentScore: "5"),
+        Player(userImage: UIImage(systemName: "person.circle.fill")!,
+               name: "Player 2",
+               currentScore: "6"),
+        Player(userImage: UIImage(systemName: "person.circle.fill")!,
+               name: "Player 3",
+               currentScore: "6"),
+        Player(userImage: UIImage(systemName: "person.circle.fill")!,
+               name: "Player 4",
+               currentScore: "6")
+    ]
+    {
             didSet {
-                // Sort players whenever the array changes
-                players.sort { $0.currentScore > $1.currentScore }
                 tableView.reloadData()
             }
         }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        players.sort {
+            guard let score1 = Int($0.currentScore),
+                  let score2 = Int($1.currentScore) else {
+                return false
+            }
+            return score1 > score2
+        }
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return players.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath) as? PlayerTableViewCell else { return UITableViewCell() }
         
@@ -52,16 +63,33 @@ class ScoreboardTableViewController: UITableViewController {
         return cell
     }
     
+    // Override to support rearranging the table view.
+//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+//        let movedPlayer = players.remove(at: fromIndexPath.row)
+//        players.insert(movedPlayer, at: to.row)
+//    }
     
+    
+    //MARK: IBActions
     @IBAction func playerScoreStepperChanged(_ sender: UIStepper) {
         let rowIndex = sender.tag
         
+        // Update the player's score
         players[rowIndex].currentScore = String(Int(sender.value))
         
-        let indexPath = IndexPath(row: rowIndex, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .none)
+        // Sort the players array by score (numeric comparison)
+        players.sort {
+            guard let score1 = Int($0.currentScore),
+                  let score2 = Int($1.currentScore) else { return false }
+            return score1 > score2
+        }
+        
+        // Reload the entire table to reflect the new order
+        tableView.reloadData()
     }
     
+    
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? AddEditViewController,
         let cell = sender as? PlayerTableViewCell else { return }
@@ -71,54 +99,28 @@ class ScoreboardTableViewController: UITableViewController {
         destinationVC.playerName = cell.playerNameLabel.text!
         destinationVC.playerCurrentScore = cell.playerScoreCountLabel.text!
     }
-
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let movedPlayer = players.remove(at: fromIndexPath.row)
-        players.insert(movedPlayer, at: to.row)
-    }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
     
-    
-    
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    @IBAction func unwindToScoreboard(_ unwindSegue: UIStoryboardSegue) {
+        guard let sourceVC = unwindSegue.source as? AddEditViewController,
+              let destinationVC = unwindSegue.destination as? ScoreboardTableViewController,
+              let sourceVCPlayer = sourceVC.player else { return }
+        
+        
+        let playerNameExists = players.contains { $0.name == sourceVCPlayer.name }
+        
+        // Only append if the player name is unique
+        if !playerNameExists {
+            players.append(sourceVCPlayer)
+            // Sort the players array by score (numeric comparison)
+            players.sort {
+                guard let score1 = Int($0.currentScore),
+                      let score2 = Int($1.currentScore) else {
+                    return false
+                }
+                return score1 > score2
+            }
+        }
+        // Reload the entire table to reflect the new order
+        destinationVC.tableView.reloadData()
     }
-    */
-
-
-    
-    
-    // MARK: - Navigation
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -172,7 +172,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Save Player"/>
                                 <connections>
-                                    <action selector="saveButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mkl-cq-r4M"/>
+                                    <action selector="saveButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UaS-lK-EiJ"/>
+                                    <segue destination="gYs-4h-SVe" kind="unwind" identifier="saveUnwind" unwindAction="unwindToScoreboard:" id="jHo-Z5-6lH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -192,9 +193,11 @@
                     <connections>
                         <outlet property="playerCurrentScoreTextField" destination="ZbW-8l-p1I" id="eiT-au-av8"/>
                         <outlet property="playerNameTextField" destination="JwS-dC-FkS" id="KNd-yd-vWi"/>
+                        <outlet property="saveButton" destination="BDX-K3-OOi" id="tWg-TL-SGu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="gYs-4h-SVe" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="140" y="5"/>
         </scene>
