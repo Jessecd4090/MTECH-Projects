@@ -17,7 +17,7 @@ class ToDoListTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
          
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+         self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -54,6 +54,7 @@ class ToDoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            toDos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -85,5 +86,13 @@ class ToDoListTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func unwindToToDoList(_ unwindSegue: UIStoryboardSegue) {
+        let sourceVC = unwindSegue.source
+        // Use data from the view controller which initiated the unwind segue
+        if unwindSegue.identifier == "saveUnwind" {
+            
+        }
+    }
 
 }
