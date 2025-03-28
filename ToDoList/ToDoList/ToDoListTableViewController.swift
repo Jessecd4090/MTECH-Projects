@@ -88,10 +88,14 @@ class ToDoListTableViewController: UITableViewController {
     */
     
     @IBAction func unwindToToDoList(_ unwindSegue: UIStoryboardSegue) {
-        let sourceVC = unwindSegue.source
+        guard unwindSegue.identifier == "saveUnwind" else { return }
+        let sourceVC = unwindSegue.source as! ToDoDetailTableViewController
         // Use data from the view controller which initiated the unwind segue
-        if unwindSegue.identifier == "saveUnwind" {
+        if let toDo = sourceVC.toDo {
+            let newIndexPath = IndexPath(row: toDos.count, section: 0)
             
+            toDos.append(toDo)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
 
