@@ -43,6 +43,9 @@ class AddEditEmojiTableViewController: UITableViewController {
         updateSaveButtonState()
     }
     
+    
+    
+    
     func containsSingleEmoji(_ textField: UITextField) -> Bool {
         guard let text = textField.text,
                 text.count == 1 else { return false }

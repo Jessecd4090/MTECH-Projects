@@ -84,7 +84,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="fTP-Hv-0XO"/>
+                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="g2r-xB-feI"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -112,7 +112,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="wUQ-ey-iqV"/>
+                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="Qpn-UA-IPA"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -140,7 +140,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="RWl-fm-VdJ"/>
+                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="WqL-Cw-NEf"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -168,7 +168,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingDidEnd" id="QjM-4D-vNz"/>
+                                                        <action selector="textEditingChanged:" destination="JoA-4D-8ej" eventType="editingChanged" id="q3g-YQ-UZh"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
