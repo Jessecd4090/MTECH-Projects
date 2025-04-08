@@ -24,14 +24,31 @@ class ToDoDetailTableViewController: UITableViewController {
     let dateLabelIndexPath = IndexPath(row: 0, section: 1)
     let datePickerIndexPath = IndexPath(row: 1, section: 1)
     let notesIndexPath = IndexPath(row: 0, section: 2)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        dueDateDatePicker.date = Date().addingTimeInterval(24*60*60)
-        updateDueDateLabel(date: dueDateDatePicker.date)
+        let currentDueDate: Date
+        
+        if let toDo {
+            print(toDo)
+            navigationItem.title = "Edit To-Do"
+            titleTextField.text = toDo.title
+            isCompleteButton.isSelected = toDo.isComplete
+            currentDueDate = toDo.dueDate
+            notesTextView.text = toDo.notes
+        } else {
+            currentDueDate = Date().addingTimeInterval(24*60*60)
+        }
+        
+        dueDateDatePicker.date = currentDueDate
+        updateDueDateLabel(date: currentDueDate)
         updateSaveButtonState()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     func updateSaveButtonState() {
@@ -161,7 +178,14 @@ class ToDoDetailTableViewController: UITableViewController {
         let dueDate = dueDateDatePicker.date
         let notes = notesTextView.text
         
-        toDo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
+        if toDo != nil {
+            toDo?.title = title
+            toDo?.isComplete = isComplete
+            toDo?.dueDate = dueDate
+            toDo?.notes = notes
+        } else {
+            toDo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
+        }
     }
 
 }

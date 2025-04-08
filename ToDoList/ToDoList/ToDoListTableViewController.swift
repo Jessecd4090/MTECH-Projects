@@ -1,6 +1,18 @@
 import UIKit
 
-class ToDoListTableViewController: UITableViewController {
+class ToDoListTableViewController: UITableViewController, ToDoCellDelegate {
+    
+    //MARK: Delegate Function
+    func checkmarkTapped(sender: ToDoCell) {
+        if let indexPath = tableView.indexPath(for: sender) {
+            var toDo = toDos[indexPath.row]
+            toDo.isComplete.toggle()
+            toDos[indexPath.row] = toDo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            ToDo.saveToDos(toDos)
+        }
+    }
+    
 
     var toDos: [ToDo] = []
     
@@ -19,6 +31,9 @@ class ToDoListTableViewController: UITableViewController {
          
          self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
+    
+    
+    
 
     // MARK: - Table view data source
 
@@ -28,13 +43,13 @@ class ToDoListTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseCell", for: indexPath)
-        let toDos = toDos[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "reuseCell", for: indexPath) as? ToDoCell else { return UITableViewCell() }
+        let toDo = toDos[indexPath.row]
 
         // Configure the cell...
-        var config = cell.defaultContentConfiguration()
-        config.text = toDos.title
-        cell.contentConfiguration = config
+        cell.titleLabel.text = toDo.title
+        cell.isCompleteButton.isSelected = toDo.isComplete
+        cell.delegate = self
         
 
         return cell
@@ -56,9 +71,8 @@ class ToDoListTableViewController: UITableViewController {
             // Delete the row from the data source
             toDos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            ToDo.saveToDos(toDos)
+        }
     }
     
 
@@ -77,26 +91,44 @@ class ToDoListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "addNew", sender: nil)
     }
-    */
+    
     
     @IBAction func unwindToToDoList(_ unwindSegue: UIStoryboardSegue) {
         guard unwindSegue.identifier == "saveUnwind" else { return }
         let sourceVC = unwindSegue.source as! ToDoDetailTableViewController
         // Use data from the view controller which initiated the unwind segue
         if let toDo = sourceVC.toDo {
-            let newIndexPath = IndexPath(row: toDos.count, section: 0)
-            
-            toDos.append(toDo)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            if let indexOfExistingToDo = toDos.firstIndex(of: toDo) {
+                toDos[indexOfExistingToDo] = toDo
+                tableView.reloadRows(at: [IndexPath(row: indexOfExistingToDo, section: 0)], with: .automatic)
+            } else {
+                let newIndexPath = IndexPath(row: toDos.count, section: 0)
+                toDos.append(toDo)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
+        ToDo.saveToDos(toDos)
     }
 
+    @IBSegueAction func editToDo(_ coder: NSCoder, sender: Any?) -> ToDoDetailTableViewController? {
+        let detailController = ToDoDetailTableViewController(coder: coder)
+        
+                guard let cell = sender as? UITableViewCell,
+                let indexPath = tableView.indexPath(for: cell) else { return detailController }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        detailController?.toDo = toDos[indexPath.row]
+        
+        
+        return detailController
+    }
 }
