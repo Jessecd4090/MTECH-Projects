@@ -1,6 +1,6 @@
 import UIKit
 
-class AddEditViewController: UIViewController {
+class AddEditPlayerViewController: UIViewController {
     
     var player: Player?
     
