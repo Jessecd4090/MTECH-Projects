@@ -13,7 +13,6 @@ class GamesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     // MARK: - Table view data source
@@ -35,29 +34,29 @@ class GamesTableViewController: UITableViewController {
         // Configure the cell...
         cell.gameTitle.text = game.title
         cell.gameImage.image = game.gameImage
-        
-        //checking the games sorting style and sorting accordingly
-        if game.highestSort {
-            players.sort {
-                guard let score1 = Int($0.currentScore),
-                      let score2 = Int($1.currentScore) else {
-                    return false
-                }
-                return score1 > score2
-            }
-            let currentFirst = game.players.first
-            cell.currentWinnerLabel.text = currentFirst?.name
-        } else {
-            players.sort {
-                guard let score1 = Int($0.currentScore),
-                      let score2 = Int($1.currentScore) else {
-                    return false
-                }
-                return score1 < score2
-            }
-            let currentFirst = game.players.first
-            cell.currentWinnerLabel.text = currentFirst?.name
-        }
+        cell.currentWinnerLabel.text = game.currentWinner.name
+        // checking the games sorting style and sorting accordingly
+//        if game.highestSort {
+//            players.sort {
+//                guard let score1 = Int($0.currentScore),
+//                      let score2 = Int($1.currentScore) else {
+//                    return false
+//                }
+//                return score1 > score2
+//            }
+//            let currentFirst = game.players.first
+//            cell.currentWinnerLabel.text = currentFirst?.name
+//        } else {
+//            players.sort {
+//                guard let score1 = Int($0.currentScore),
+//                      let score2 = Int($1.currentScore) else {
+//                    return false
+//                }
+//                return score1 < score2
+//            }
+//            let currentFirst = game.players.first
+//            cell.currentWinnerLabel.text = currentFirst?.name
+//        }
         return cell
     }
 
@@ -73,9 +72,8 @@ class GamesTableViewController: UITableViewController {
         
         
         if segue.identifier == "editGame" {
-            let game = games[indexPath.row]
-            editDestinationVC.navigationItem.title = game.title
-            editDestinationVC.gameToEdit = game
+            editDestinationVC.game = games[indexPath.row]
+            editDestinationVC.navigationItem.title = games[indexPath.row].title
         }
     }
     
@@ -84,20 +82,28 @@ class GamesTableViewController: UITableViewController {
         
         guard let sourceVC = unwindSegue.source as? ScoreboardTableViewController,
               unwindSegue.identifier == "scoreToGame",
-        let sourceVCGame = sourceVC.gameToEdit else { return }
+        let sourceVCGame = sourceVC.game else { return }
         
         //need to find the index of original game
         if let index = games.firstIndex(where: { $0.title == sourceVCGame.title }) {
             games[index] = sourceVCGame
+//            if games[index].highestSort == true {
+//                games[index].currentWinner = games[index].players.first!
+//            } else {
+//                games[index].currentWinner = games[index].players.last!
+//            }
         }
+        tableView.reloadData()
     }
     
     //MARK: Save New Game
     @IBAction func unwindToGamesFromNew(_ unwindSegue: UIStoryboardSegue) {
         let sourceVC = unwindSegue.source as? AddNewGameTableViewController
         // Use data from the view controller which initiated the unwind segue
-        guard let sourceVCGame = sourceVC?.newGame else { return }
-        games.append(sourceVCGame)
+        print(sourceVC?.game)
+        guard let sourceVCGame = sourceVC?.game else { return }
+        print(sourceVCGame)
+        games += [sourceVCGame]
         print(sourceVCGame)
         tableView.reloadData()
     }

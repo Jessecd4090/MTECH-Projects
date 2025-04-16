@@ -1,14 +1,18 @@
 //
-//  GamePlayerTableViewCell.swift
+//  NewGameNewPlayerCell.swift
 //  Score Keeper
 //
-//  Created by Jestin Dorius on 3/31/25.
+//  Created by Jestin Dorius on 4/14/25.
 //
 
 import UIKit
 
-class GamePlayerTableViewCell: UITableViewCell {
+class NewGameNewPlayerCell: UITableViewCell {
 
+    
+    @IBOutlet weak var newPlayerImageView: UIImageView!
+    @IBOutlet weak var newPlayerNameLabel: UILabel!
+    @IBOutlet weak var newPlayerScoreLabel: UILabel!
     
     
     override func awakeFromNib() {
