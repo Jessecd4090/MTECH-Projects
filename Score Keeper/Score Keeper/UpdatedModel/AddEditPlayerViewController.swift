@@ -37,7 +37,7 @@ class AddEditPlayerViewController: UIViewController {
             print("new Player saved")
             let newPlayer = Player(name: name,
                                    currentScore: currentScore)
-//            print(newPlayer.name)
+            print(newPlayer.name)
             delegate?.didSavePlayer(newPlayer)
             navigationController?.popViewController(animated: true)
 //            dismiss(animated: true)

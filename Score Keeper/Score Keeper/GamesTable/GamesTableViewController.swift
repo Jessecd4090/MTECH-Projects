@@ -64,7 +64,10 @@ class GamesTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-  
+    @IBSegueAction func showAddGame(_ coder: NSCoder) -> NewGameViewController? {
+        return NewGameViewController(game: nil, coder: coder)
+    }
+    
     
     //MARK: Game Cell Tap, Game.players
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,7 +101,7 @@ class GamesTableViewController: UITableViewController {
     
     //MARK: Save New Game
     @IBAction func unwindToGamesFromNew(_ unwindSegue: UIStoryboardSegue) {
-        let sourceVC = unwindSegue.source as? AddNewGameTableViewController
+        let sourceVC = unwindSegue.source as? NewGameViewController
         // Use data from the view controller which initiated the unwind segue
         print(sourceVC?.game)
         guard let sourceVCGame = sourceVC?.game else { return }

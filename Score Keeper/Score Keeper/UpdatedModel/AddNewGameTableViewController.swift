@@ -7,60 +7,57 @@
 
 import UIKit
 
-class AddNewGameTableViewController: UITableViewController, PlayerEditDelegate {
-    
-    
-    
-    @IBOutlet weak var gameTitleTextField: UITextField!
-    @IBOutlet weak var sortPlayerBySegControl: UISegmentedControl!
-    @IBOutlet weak var whoWinsSegControl: UISegmentedControl!
-    @IBOutlet weak var playersNamesLabel: UILabel!
-    
-    let playerIndexPath = IndexPath(row: 1, section: 3)
-    var newPlayers: [Player] = []
-    var game: Game?
-//    {
-//        didSet {
-//            guard game != nil else { return }
-//        }
+//class AddNewGameTableViewController: UITableViewController, PlayerEditDelegate {
+//    
+//    
+//    
+//    @IBOutlet weak var gameTitleTextField: UITextField!
+//    @IBOutlet weak var sortPlayerBySegControl: UISegmentedControl!
+//    @IBOutlet weak var whoWinsSegControl: UISegmentedControl!
+//    
+//    var newPlayers: [Player] = []
+//    var game: Game?
+////    {
+////        didSet {
+////            guard game != nil else { return }
+////        }
+////    }
+//    //MARK: Delegate Function
+//    func didSavePlayer(_ player: Player) {
+//        self.newPlayers += [player]
 //    }
-    //MARK: Delegate Function
-    func didSavePlayer(_ player: Player) {
-        self.newPlayers += [player]
-        updatePlayerLabel(player)
-    }
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
-    //MARK: IBActions
-    
-    
-    
-    
-    //MARK: Save New Game
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "saveNewGame", sender: sender)
-    }
-    
-    //MARK: AutoUpdate NavTitle
-    @IBAction func gameTitleChanged(_ sender: Any) {
-        navigationItem.title = gameTitleTextField.text
-    }
+//    //MARK: IBActions
+//    
+//    
+//    
+//    
+//    //MARK: Save New Game
+//    @IBAction func saveButtonTapped(_ sender: Any) {
+//        performSegue(withIdentifier: "saveNewGame", sender: sender)
+//    }
+//    
+//    //MARK: AutoUpdate NavTitle
+//    @IBAction func gameTitleChanged(_ sender: Any) {
+//        navigationItem.title = gameTitleTextField.text
+//    }
     
     // MARK: - Table view data source
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "saveNewGame" {
-            createNewGame()
-        }
-        if segue.identifier == "showAddEditPlayer" { // Use your actual segue identifier
-                let addEditPlayerVC = segue.destination as! AddEditPlayerViewController
-                addEditPlayerVC.delegate = self // Set delegate to self
-            }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "saveNewGame" {
+//            createNewGame()
+//        }
+//        if segue.identifier == "showAddEditPlayer" { // Use your actual segue identifier
+//                let addEditPlayerVC = segue.destination as! AddEditPlayerViewController
+//                addEditPlayerVC.delegate = self // Set delegate to self
+//            }
+//    }
     
     //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //        if indexPath.section == 2 {
@@ -88,6 +85,6 @@ class AddNewGameTableViewController: UITableViewController, PlayerEditDelegate {
     
     
     // MARK: - Navigation
-}
+
 
 

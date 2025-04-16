@@ -169,7 +169,7 @@
                     <navigationItem key="navigationItem" title="Games" id="Dj3-DV-Hn5">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="NMP-aA-As2">
                             <connections>
-                                <segue destination="LY9-8D-8S0" kind="show" identifier="addNewGame" id="V8i-uF-bLE"/>
+                                <segue destination="LY9-8D-8S0" kind="show" identifier="addGame" destinationCreationSelector="showAddGame:" id="B6H-Zs-gxu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -181,7 +181,7 @@
         <!--Add New Game-->
         <scene sceneID="GFl-CA-9PK">
             <objects>
-                <tableViewController id="y3f-Q3-lgd" customClass="AddNewGameTableViewController" customModule="Score_Keeper" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="y3f-Q3-lgd" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="O5t-ed-i28">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -365,9 +365,6 @@
                                                     <rect key="frame" x="15" y="0.0" width="372" height="34.666666666666664"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="filled" title="Add New Player"/>
-                                                    <connections>
-                                                        <segue destination="BYZ-38-t0r" kind="show" id="khe-nk-ysj"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -395,16 +392,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="gameTitleTextField" destination="7RT-3M-zVY" id="seV-Ud-Fhd"/>
                         <outlet property="playersNamesLabel" destination="tZ8-Hx-0jv" id="BZG-Ic-nak"/>
-                        <outlet property="sortPlayerBySegControl" destination="bLQ-q4-Bbv" id="QhJ-dg-3mS"/>
-                        <outlet property="whoWinsSegControl" destination="hil-cQ-Hi1" id="bMB-n9-Xex"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qA-SG-7Hi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="xHp-Ua-OU1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-666" y="-632"/>
+            <point key="canvasLocation" x="131" y="99"/>
         </scene>
         <!--New Game View Controller-->
         <scene sceneID="CJv-b9-Dv3">
@@ -431,7 +425,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="gameTitleChanged:" destination="LY9-8D-8S0" eventType="editingDidEnd" id="yHH-N9-Iqs"/>
+                                                    <action selector="gameTitleChanged:" destination="LY9-8D-8S0" eventType="editingChanged" id="i50-bw-n1p"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
@@ -600,15 +594,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="gameTitleTextField" destination="V0N-RC-Xjv" id="CHS-7S-8xS"/>
-                        <outlet property="playersTableView" destination="nsb-4g-KTH" id="I0K-zZ-8AV"/>
-                        <outlet property="sortPlayerBySegControl" destination="dcy-dA-nAy" id="jmd-Xc-ZKz"/>
-                        <outlet property="whoWinsSegControl" destination="2J8-8x-KNa" id="CSJ-xZ-9Gp"/>
+                        <outlet property="gameTitleTextfield" destination="V0N-RC-Xjv" id="Zzj-Y6-ptQ"/>
+                        <outlet property="playersTableView" destination="nsb-4g-KTH" id="5MP-gU-NJb"/>
+                        <outlet property="sortPlayerBySegControl" destination="dcy-dA-nAy" id="o3c-TR-eQG"/>
+                        <outlet property="whoWinsSegControl" destination="2J8-8x-KNa" id="xCR-PM-u3I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RTF-F0-ah2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="38.805970149253731" y="-632.26544622425627"/>
+            <point key="canvasLocation" x="-667" y="-632"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eKk-Q8-0eS">

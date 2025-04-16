@@ -10,12 +10,14 @@ import UIKit
 class ScoreboardTableViewController: UITableViewController, PlayerEditDelegate {
     
     var game: Game?
+
     
-//    var gamePlayer: [Player] = [] {
-//            didSet {
-//                tableView.reloadData()
-//            }
-//        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.leftBarButtonItem?.title = "Games"
+        tableView.reloadData()
+    }
+
     //MARK: Delegate Function
     func didSavePlayer(_ player: Player) {
         print(player.currentScore)
@@ -24,7 +26,7 @@ class ScoreboardTableViewController: UITableViewController, PlayerEditDelegate {
         
         guard let game = game else { return }
         let playerIDExists = game.players.contains(where: { $0.id == player.id })
-//        guard let playerExists = game?.players.contains( where: { $0.name == player.name && $0.currentScore == player.currentScore } ) else { return }
+        //        guard let playerExists = game?.players.contains( where: { $0.name == player.name && $0.currentScore == player.currentScore } ) else { return }
         
         //changed to playerIDExists from playerExists
         if playerIDExists {
@@ -41,39 +43,7 @@ class ScoreboardTableViewController: UITableViewController, PlayerEditDelegate {
         }
         
         tableView.reloadData()
-//        guard let index = game?.players.firstIndex(where:{ $0.id == player.id })
-//        else { self.game?.players.append(player)
-//        return }
-//        self.game?.players[index] = player
-//        print(index)
-//        tableView.reloadData()
     }
-//        guard var game = game,
-//              let indexPath = tableView.indexPathForSelectedRow
-////                  indexPath.row < game.players.count
-//            else { return }
-//
-//        let playerNameAndScoreExists = game.players.contains { $0.name == player.name && $0.currentScore == player.currentScore }
-//        
-//                // Only append if the player name is unique
-//        if !playerNameAndScoreExists {
-//        //            self.gameToEdit?.players.append(sourceVCPlayer)
-//                    self.game?.players[indexPath.row] = player
-//                    if game.highestSort == true {
-//                        game.sortPlayersHighToLow()
-//                    }
-//                    game.sortPlayersLowToHigh()
-//                }
-                // Reload the entire table to reflect the new order
-                
-            
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.leftBarButtonItem?.title = "Games"
-    }
-
     
     // MARK: - Table DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,6 +140,9 @@ class ScoreboardTableViewController: UITableViewController, PlayerEditDelegate {
             addNewPlayerVC.player = game?.players[indexPath.row]
             print(indexPath)
         }
+        let addNewPlayerVC = segue.destination as? AddEditPlayerViewController
+        addNewPlayerVC?.delegate = self
+        
         // Reload the entire table to reflect the new order
         tableView.reloadData()
     }

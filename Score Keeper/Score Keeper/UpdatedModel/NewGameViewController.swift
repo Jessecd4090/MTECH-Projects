@@ -9,27 +9,36 @@ import UIKit
 
 class NewGameViewController: UIViewController, PlayerEditDelegate {
 
-    @IBOutlet weak var gameTitleTextField: UITextField!
-    @IBOutlet weak var sortPlayerBySegControl: UISegmentedControl!
-    @IBOutlet weak var whoWinsSegControl: UISegmentedControl!
-    @IBOutlet weak var playersTableView: UITableView!
     
-    private var newPlayers: [Player] = []
-    private var playerArray: [Player] = players
-    private var game: Game? {
+    @IBOutlet var gameTitleTextfield: UITextField!
+    @IBOutlet var sortPlayerBySegControl: UISegmentedControl!
+    @IBOutlet var whoWinsSegControl: UISegmentedControl!
+    @IBOutlet var playersTableView: UITableView!
+    
+    var newPlayers: [Player] = []
+    var game: Game? {
         didSet {
             print("game set?")
         }
     }
     
+    init?(game: Game?, coder: NSCoder) {
+        super.init(coder: coder)
+        self.game = game
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     //MARK: Delegate Function
     func didSavePlayer(_ player: Player) {
-//        print(player)
-        if playerArray.count > 0 {
-            self.playerArray.append(player)
+        print(player)
+        if newPlayers.count >= 0 {
+            self.newPlayers.append(player)
         } else {
-            playerArray = [player]
+            newPlayers += [player]
         }
         playersTableView.reloadData()
        
@@ -42,22 +51,20 @@ class NewGameViewController: UIViewController, PlayerEditDelegate {
 //        playerArray = []
 //        game = nil
 ////        print("Game \(game?.title)")
-//        print("New Players \(playerArray)")
-//        print("stop here")
+        print(newPlayers)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-////        print("Game \(game?.title)")
-//        print("New Players \(playerArray)")
-//        print("stop here")
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        print("Game \(game?.title)")
+        
+    }
     
     func createNewGame() {
         var highestSort = false
         var highestWins = false
-        let gameTitle = gameTitleTextField.text ?? ""
+        let gameTitle = gameTitleTextfield.text ?? ""
         let gameImage = UIImage(systemName: "die.face.6")!
     
         if sortPlayerBySegControl.selectedSegmentIndex == 0 {
@@ -88,9 +95,15 @@ class NewGameViewController: UIViewController, PlayerEditDelegate {
     }
     
     //MARK: AutoUpdate NavTitle
+    
     @IBAction func gameTitleChanged(_ sender: Any) {
-        navigationItem.title = gameTitleTextField.text
+        navigationItem.title = gameTitleTextfield.text
     }
+    
+    
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveNewGame" {
             createNewGame()
@@ -123,22 +136,22 @@ class NewGameViewController: UIViewController, PlayerEditDelegate {
 
 }
 
-//MARK: Extension for TableView
-extension NewGameViewController: UITableViewDataSource, UITableViewDelegate {
-    //TableView DataSource
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newPlayers.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "newPlayerCell") as? NewGameNewPlayerCell else { return UITableViewCell() }
-        
-        let newPlayer = newPlayers[indexPath.row]
-        
-        cell.newPlayerImageView.image = newPlayer.userImage
-        cell.newPlayerNameLabel.text = newPlayer.name
-        cell.newPlayerScoreLabel.text = newPlayer.currentScore
-        
-        return cell
-    }
-}
+////MARK: Extension for TableView
+//extension NewGameViewController: UITableViewDataSource, UITableViewDelegate {
+//    //TableView DataSource
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return newPlayers.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "newPlayerCell") as? NewGameNewPlayerCell else { return UITableViewCell() }
+//        
+//        let newPlayer = newPlayers[indexPath.row]
+//        
+//        cell.newPlayerImageView.image = newPlayer.userImage
+//        cell.newPlayerNameLabel.text = newPlayer.name
+//        cell.newPlayerScoreLabel.text = newPlayer.currentScore
+//        
+//        return cell
+//    }
+//}
