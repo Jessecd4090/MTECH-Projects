@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol CreditCardDelegate {
+    func creditCardExists()
+}
+    
 class ProcessCardViewController: UIViewController {
 
+    
+    var creditCard: CreditCard?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

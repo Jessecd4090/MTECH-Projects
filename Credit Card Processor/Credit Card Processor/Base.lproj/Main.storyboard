@@ -41,18 +41,36 @@
             </objects>
             <point key="canvasLocation" x="1858.7786259541983" y="-2.1126760563380285"/>
         </scene>
+        <!--User-->
+        <scene sceneID="PfM-Wa-oqi">
+            <objects>
+                <viewController id="x0M-xQ-D2z" customClass="UserViewController" customModule="Credit_Card_Processor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1d7-Dq-9lH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="xAP-hM-hS3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="User" image="person" catalog="system" selectedImage="person.fill" id="ZaY-31-yAw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nsc-LA-xwW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2543" y="0.0"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="a0e-9e-sQW">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="HFH-nO-m0S" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Aa8-lR-aDI">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="NbD-e2-3LF" kind="relationship" relationship="viewControllers" id="2zW-ap-6h3"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="GUP-me-tcO"/>
+                        <segue destination="x0M-xQ-D2z" kind="relationship" relationship="viewControllers" id="w1N-UI-rIl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qf-Cr-cbF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -65,6 +83,8 @@
         <image name="creditcard.fill" catalog="system" width="128" height="88"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="person" catalog="system" width="128" height="121"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
