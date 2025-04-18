@@ -1,27 +1,20 @@
 //
-//  HomePageViewController.swift
+//  ViewController.swift
 //  Credit Card Processor
 //
-//  Created by Jestin Dorius on 4/8/25.
+//  Created by Jestin Dorius on 4/16/25.
 //
 
 import UIKit
 
-class HomePageViewController: UIViewController, CreditCardDelegate {
-    func creditCardExists() {
-        print("Credit Card is valid")
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+class ViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
     
 
     /*
