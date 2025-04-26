@@ -19,8 +19,24 @@ struct DogNetworkController {
                 return dog
             } catch {
                 print(error)
-                fatalError()
         }
+        return Dog(image: "TestLowerValue")
+    }
+    
+    
+    static func getDogPic(url: String) async -> UIImage {
+        do {
+            //define URL
+            let url = URL(string: url)!
+            //Get Data from URL
+            let (data, _) = try await URLSession.shared.data(from: url)
+            //Convert the data to some Codable ojbect?
+            guard let dogImage = UIImage(data: data) else { return UIImage() }
+            return dogImage
+        } catch {
+            print(error)
+        }
+        return UIImage()
     }
 }
 

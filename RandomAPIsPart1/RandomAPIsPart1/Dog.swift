@@ -8,5 +8,11 @@ import UIKit
 
 struct Dog: Codable {
     var image: String // really a URL
+    var status: String?
     
+    
+    enum CodingKeys: String, CodingKey {
+        case image = "message"
+        case status
+    }
 }

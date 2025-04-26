@@ -36,6 +36,10 @@ class RepresentativeTableController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Representative", for: indexPath)
 
         // Configure the cell...
+        var content = cell.defaultContentConfiguration()
+        content.text = "Test Text"
+        content.secondaryText = "Test Text"
+        cell.contentConfiguration = content
 
         return cell
     }
