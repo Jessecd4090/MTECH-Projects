@@ -7,6 +7,8 @@
 import Foundation
 
 class MenuController {
+    static let shared = MenuController()
+    
     let baseURL = URL(string: "http://localhost:8080/")!
     
     
