@@ -39,18 +39,3 @@ struct DogNetworkController {
         return UIImage()
     }
 }
-
-//func getDogPicFromAPI(input: String) -> UIImage {
-//    let url = URL(string: input)!
-//    
-//    Task {
-//        let (data, response) = try await URLSession.shared.data(from: url)
-//        
-//        if let httpsResponse = response as? HTTPURLResponse, httpsResponse.statusCode == 200, let dataImage = UIImage(data: data) {
-//            print(dataImage)
-//            return dataImage
-//        }
-//      return
-//    }
-//    
-//}

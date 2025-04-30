@@ -9,15 +9,41 @@ import UIKit
 
 class RepresentativeTableController: UITableViewController {
 
+    @IBOutlet weak var zipSearchBar: UISearchBar!
+    
+    var zipcode = String()
+    var reps = [Representative]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        zipSearchBar.delegate = self
+        
+        zipcode = zipSearchBar.text ?? "84660"
+        tableView.rowHeight = 58
+//        tableView.estimatedRowHeight = 300
+        
+        Task {
+            do {
+                reps = await RepresentativeController.getRep(zipcode: "84660")
+                print(reps)
+            }
+            tableView.reloadData()
+        }
+        
     }
+    
+//    func viewDidAppear(_ animated: Bool) async {
+//        await updateReps()
+//    }
+    
+    func updateReps() async {
+        do {
+            reps = await RepresentativeController.getRep(zipcode: zipcode)
+            print(reps)
+        }
+    }
+        
 
     // MARK: - Table view data source
 
@@ -28,18 +54,20 @@ class RepresentativeTableController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return reps.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Representative", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Representative", for: indexPath) as? RepCell else { return UITableViewCell() }
 
+        
+        let rep = reps[indexPath.row]
         // Configure the cell...
-        var content = cell.defaultContentConfiguration()
-        content.text = "Test Text"
-        content.secondaryText = "Test Text"
-        cell.contentConfiguration = content
+        cell.repNameLabel.text = rep.name
+        cell.repPartyLabel.text = rep.party
+        cell.repLinkLabel.text = rep.link
+        
 
         return cell
     }
@@ -90,4 +118,28 @@ class RepresentativeTableController: UITableViewController {
     }
     */
 
+}
+
+extension RepresentativeTableController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchBarText = searchBar.text else { return }
+        Task {
+            do {
+                reps = await RepresentativeController.getRep(zipcode: searchBarText)
+                print(reps)
+            }
+            tableView.reloadData()
+        }
+        print("Search Bar Clicked")
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        guard let searchBarText = searchBar.text else { return }
+        Task {
+            do {
+                reps = await RepresentativeController.getRep(zipcode: searchBarText)
+                print(reps)
+            }
+            tableView.reloadData()
+        }
+    }
 }

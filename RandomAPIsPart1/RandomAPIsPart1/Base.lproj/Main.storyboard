@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,19 +12,22 @@
         <!--Dogs-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RandomAPIsPart1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="DogViewController" customModule="RandomAPIsPart1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="q21-1R-UNW">
-                                <rect key="frame" x="15" y="133" width="363" height="587"/>
+                                <rect key="frame" x="0.0" y="133" width="393" height="587"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NnP-qe-yQJ">
-                                        <rect key="frame" x="1" y="0.0" width="361" height="387"/>
+                                        <rect key="frame" x="16" y="0.0" width="361" height="475"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="475" id="Ot9-ts-ISB"/>
+                                        </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Sz-Nk-mMg">
-                                        <rect key="frame" x="0.0" y="387" width="363" height="200"/>
+                                        <rect key="frame" x="0.0" y="475" width="393" height="112"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Get Dog"/>
                                         <connections>
@@ -40,10 +44,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q21-1R-UNW" secondAttribute="trailing" constant="15" id="1sV-ov-jGJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q21-1R-UNW" secondAttribute="trailing" id="1sV-ov-jGJ"/>
                             <constraint firstItem="q21-1R-UNW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="7Ou-JY-0Sh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="q21-1R-UNW" secondAttribute="bottom" constant="15" id="JYq-if-Wbs"/>
-                            <constraint firstItem="q21-1R-UNW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="muZ-Lg-MuO"/>
+                            <constraint firstItem="q21-1R-UNW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="muZ-Lg-MuO"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Dogs" image="pawprint" catalog="system" selectedImage="pawprint.fill" id="ZCr-dI-ji9"/>
@@ -55,7 +59,7 @@
             </objects>
             <point key="canvasLocation" x="1066.4122137404579" y="3.5211267605633805"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Representatives By Zipcode-->
         <scene sceneID="Vxa-Sq-Jte">
             <objects>
                 <tableViewController id="Dgd-y3-i7e" customClass="RepresentativeTableController" customModule="RandomAPIsPart1" customModuleProvider="target" sceneMemberID="viewController">
@@ -63,14 +67,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="PYn-Is-zyI">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Representative" id="0tf-et-xcb">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Representative" id="0tf-et-xcb" customClass="RepCell" customModule="RandomAPIsPart1" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="94" width="393" height="54.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0tf-et-xcb" id="6VX-Bm-qjg">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0tf-et-xcb" id="6VX-Bm-qjg" customClass="RepCell" customModule="RandomAPIsPart1" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="54.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kpe-lf-Hf4">
+                                            <rect key="frame" x="15" y="0.0" width="363" height="54.666666666666664"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tog-w8-3Tf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="363" height="24.333333333333332"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Rep Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDM-Gf-ZaK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="181.66666666666666" height="24.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="PoliticalParty" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e29-T9-Jke">
+                                                            <rect key="frame" x="189.66666666666663" y="0.0" width="173.33333333333337" height="24.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mx3-O1-6YN">
+                                                    <rect key="frame" x="0.0" y="34.333333333333336" width="363" height="20.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kpe-lf-Hf4" firstAttribute="top" secondItem="6VX-Bm-qjg" secondAttribute="top" id="1be-c4-qZc"/>
+                                        <constraint firstItem="kpe-lf-Hf4" firstAttribute="leading" secondItem="6VX-Bm-qjg" secondAttribute="leading" constant="15" id="JHP-zg-sEi"/>
+                                        <constraint firstAttribute="bottom" secondItem="kpe-lf-Hf4" secondAttribute="bottom" id="WXt-lL-PSp"/>
+                                        <constraint firstAttribute="trailing" secondItem="kpe-lf-Hf4" secondAttribute="trailing" constant="15" id="qL5-HW-xqA"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="repLinkLabel" destination="Mx3-O1-6YN" id="4qj-Q4-mDL"/>
+                                    <outlet property="repNameLabel" destination="rDM-Gf-ZaK" id="WwI-Jo-YRC"/>
+                                    <outlet property="repPartyLabel" destination="e29-T9-Jke" id="eL8-xR-D2q"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -79,17 +129,20 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Representative" image="person" catalog="system" selectedImage="person.fill" id="9iz-FI-CUF"/>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="1sY-7g-Byd"/>
+                    <navigationItem key="navigationItem" title="Representatives By Zipcode" id="1sY-7g-Byd"/>
+                    <connections>
+                        <outlet property="zipSearchBar" destination="PYn-Is-zyI" id="5mg-Kp-VCt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fg2-zl-1kT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140" y="722"/>
         </scene>
-        <!--Item-->
+        <!--Representatives-->
         <scene sceneID="x7J-06-FBF">
             <objects>
                 <navigationController id="b9Y-8Q-FQZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="8Yd-sU-0oe"/>
+                    <tabBarItem key="tabBarItem" title="Representatives" image="person" catalog="system" selectedImage="person.fill" id="8Yd-sU-0oe"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bYc-P8-WfZ">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -108,12 +161,13 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="MJh-OB-YDA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0I7-1D-VBv">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="mBK-Ux-cBs"/>
-                        <segue destination="Dgd-y3-i7e" kind="relationship" relationship="viewControllers" id="ejf-yr-Chc"/>
+                        <segue destination="b9Y-8Q-FQZ" kind="relationship" relationship="viewControllers" id="ljO-cD-n51"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asQ-2d-s7B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -121,14 +175,14 @@
             <point key="canvasLocation" x="140" y="4"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="62K-Lv-wOZ"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="pawprint" catalog="system" width="128" height="114"/>
         <image name="pawprint.fill" catalog="system" width="128" height="112"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

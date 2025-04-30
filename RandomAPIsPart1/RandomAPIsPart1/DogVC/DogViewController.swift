@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DogViewController.swift
 //  RandomAPIsPart1
 //
 //  Created by Jestin Dorius on 4/24/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DogViewController: UIViewController {
 
     @IBOutlet weak var dogImageView: UIImageView!
     var dog: Dog?
