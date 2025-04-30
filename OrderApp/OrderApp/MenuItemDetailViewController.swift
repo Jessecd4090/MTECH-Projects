@@ -37,11 +37,21 @@ class MenuItemDetailViewController: UIViewController {
         nameLabel.text = menuItem.name
         /// Need to set up getting image first then come back
 //        imageView.image = menuItem.imageURL
-        priceLabel.text = "\(menuItem.price)"
+        priceLabel.text = menuItem.price.formatted(.currency(code: "usd"))
         detailTextLabel.text = menuItem.detailText
         
     }
 
+    @IBAction func orderButtonTapped(_ sender: Any) {
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.1, animations: {
+                self.addToOrderButton.transform = CGAffineTransform(scaleX: 3.0, y: 3.0)
+                self.addToOrderButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

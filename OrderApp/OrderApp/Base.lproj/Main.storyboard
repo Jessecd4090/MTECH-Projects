@@ -112,6 +112,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add To Order"/>
+                                <connections>
+                                    <action selector="orderButtonTapped:" destination="txm-ph-kYw" eventType="touchUpInside" id="eag-eU-4lu"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IyT-9K-kOA">
                                 <rect key="frame" x="15" y="161.99999999999997" width="363" height="273.33333333333326"/>
