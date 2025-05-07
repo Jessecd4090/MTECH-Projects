@@ -35,10 +35,14 @@ class MenuItemDetailViewController: UIViewController {
     
     func updateUI() {
         nameLabel.text = menuItem.name
-        /// Need to set up getting image first then come back
-//        imageView.image = menuItem.imageURL
         priceLabel.text = menuItem.price.formatted(.currency(code: "usd"))
         detailTextLabel.text = menuItem.detailText
+        
+        Task.init {
+            if let image = try? await MenuController.shared.fetchImages(from: menuItem.imageURL) {
+                imageView.image = image
+            }
+        }
         
     }
 

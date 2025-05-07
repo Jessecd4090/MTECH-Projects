@@ -12,6 +12,7 @@ class MenuTableViewController: UITableViewController {
     
     let category: String
     var menuItems = [MenuItem]()
+    var imageLoadTasks: [IndexPath: Task<Void, Never>] = [:]
     
     
     init?(coder: NSCoder, category: String) {
@@ -65,13 +66,39 @@ class MenuTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        imageLoadTasks[indexPath]?.cancel()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        
+        imageLoadTasks.forEach { key, value in value.cancel() }
+    }
+    
     func configure(_ cell: UITableViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? MenuItemCell else  { return }
+        
         let menuItem = menuItems[indexPath.row]
         
-        var content = cell.defaultContentConfiguration()
-        content.text = menuItem.name
-        content.secondaryText = menuItem.price.formatted(.currency(code: "usd"))
-        cell.contentConfiguration = content
+        cell.itemName = menuItem.name
+        cell.price = menuItem.price
+        cell.image = nil
+        
+        imageLoadTasks[indexPath] = Task.init {
+            if let image = try? await MenuController.shared.fetchImages(from: menuItem.imageURL) {
+                let desiredSize = CGSize(width: 40, height: 40)
+                let resizedImage = image.resized(to: desiredSize)
+                
+                if let currentIndexPath = self.tableView.indexPath(for: cell), currentIndexPath == indexPath {
+                    cell.image = resizedImage
+                }
+                print("Image was Returned")
+            }
+            imageLoadTasks[indexPath] = nil
+        }
     }
 
     /*

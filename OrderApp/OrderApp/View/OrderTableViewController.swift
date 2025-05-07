@@ -9,6 +9,8 @@ import UIKit
 
 class OrderTableViewController: UITableViewController {
     
+    var minutesToPrepareOrder = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +23,43 @@ class OrderTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    @IBAction func submitTapped(_ sender: Any) {
+        let orderTotal = MenuController.shared.order.menuItems.reduce(0.0) { (partialResult, menuItem) -> Double in
+            return partialResult + menuItem.price
+        }
+        
+        let formattedTotal = orderTotal.formatted(.currency(code: "usd"))
+        
+        let alertController = UIAlertController(title: "Confirm Order", message: " You are about to submit your order with a total of \(formattedTotal)", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Submit", style: .default, handler: { _ in
+            self.uploadOrder()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func uploadOrder() {
+        let menuIds = MenuController.shared.order.menuItems.map { $0.id }
+        Task.init {
+            do {
+                let minutesToPrepare = try await MenuController.shared.submitOrder(forMenuIDs: menuIds)
+                minutesToPrepareOrder = minutesToPrepare
+                performSegue(withIdentifier: "confirmOrder", sender: nil)
+            } catch {
+                displayError(error, title: "Order Submission Failed")
+            }
+        }
+    }
+    
+    func displayError(_ error: Error, title: String) {
+        guard let _ = viewIfLoaded?.window else { return }
+        let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -46,12 +84,21 @@ class OrderTableViewController: UITableViewController {
     }
     
     func configure(_ cell: UITableViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? MenuItemCell else { return }
         let menuItem = MenuController.shared.order.menuItems[indexPath.row]
         
-        var content = cell.defaultContentConfiguration()
-        content.text = menuItem.name
-        content.secondaryText = menuItem.price.formatted(.currency(code: "usd"))
-        cell.contentConfiguration = content
+        cell.itemName = menuItem.name
+        cell.price = menuItem.price
+        
+        Task.init {
+            if let image = try? await MenuController.shared.fetchImages(from: menuItem.imageURL) {
+                let desiredSize = CGSize(width: 40, height: 40)
+                let resizedImage = image.resized(to: desiredSize)
+                
+                cell.image = resizedImage
+            }
+        }
+        
     }
     
     // Override to support conditional editing of the table view.
@@ -96,5 +143,17 @@ class OrderTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func unwindToOrderList(segue: UIStoryboardSegue) {
+        
+        if segue.identifier == "dismissConfirmation" {
+            MenuController.shared.order.menuItems.removeAll()
+            dismiss(animated: true)
+        }
+    }
+    
+    @IBSegueAction func confirmOrder(_ coder: NSCoder) -> OrderConfirmationVC? {
+        return OrderConfirmationVC(coder: coder, minutesToPrepare: minutesToPrepareOrder)
+    }
+    
 }
