@@ -9,28 +9,53 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var isDisabled = Bool()
-    @State var message = ""
+    @State var enabledButtons = [String]()
+    @State var isHidden = Bool()
+    @State var button1Selected = Bool()
+    @State var button2Selected = Bool()
+    @State var button3Selected = Bool()
+    @State var button4Selected = Bool()
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.black.ignoresSafeArea()
-            Text("Favorite Sport").foregroundStyle(.white)
-                .font(.largeTitle).padding(75)
+            Color
+                .black
+                .ignoresSafeArea()
+            Text("Favorite Swords of Justice")
+                .foregroundStyle(.white)
+                .font(.largeTitle)
+                .padding(75)
                 Spacer()
             VStack {
                 Spacer()
                 Spacer()
                 HStack {
-                    createButton(title: "Golf")
-                    createButton(title: "Football")
+                    createButton(
+                        title: "Cobaloin",
+                        enabled: button1Selected,
+                        id: 1)
+                    createButton(
+                        title: "Terrakion",
+                        enabled: button2Selected,
+                        id: 2)
                 }
                 HStack {
-                    createButton(title: "Soccer")
-                    createButton(title: "Baseball")
+                    createButton(
+                        title: "Virizion",
+                        enabled: button3Selected,
+                        id: 3)
+                    createButton(
+                        title: "Keldeo",
+                        enabled: button4Selected,
+                        id: 4)
                 }
                 Spacer()
-                createSubmitButton(width: 200)
+                Text("You picked \(enabledButtons.joined(separator: ", "))")
+                    .foregroundStyle(!isHidden ? .black : .white)
+                    .font(
+                        .title2)
+                createSubmitButton(
+                    width: 200)
                 Spacer()
             }
             Spacer()
@@ -39,18 +64,25 @@ struct ContentView: View {
         
     }
     
-    func createButton(title: String) -> some View {
+    func createButton(title: String, enabled: Bool, id: Int) -> some View {
         Button {
+            addButtonToEnabled(title)
             
+            button1Selected
+                .toggle()
+            print(enabledButtons)
         } label: {
             Text(title)
-                .foregroundStyle(.white)
+                .foregroundStyle(
+                    .white)
                 
         }
         
-        .frame(width: 100, height: 100)
-        .background(!isDisabled ? .green : .gray)
-        .disabled(isDisabled)
+        .frame(
+            width: 100,
+            height: 100)
+        .background(enabledButtons.contains(title) ? .gray : .green)
+//        .disabled(isDisabled)
         .cornerRadius(24)
         
     }
@@ -58,15 +90,32 @@ struct ContentView: View {
     func createSubmitButton(width: CGFloat) -> some View {
         Button {
             print("Submit Tapped")
-            isDisabled.toggle()
+            isHidden
+                .toggle()
+            if isHidden == false {
+                enabledButtons.removeAll()
+            }
         } label: {
-            Text("Submit")
+            Text("Submit Answers")
         }
         
-        .frame(width: 100, height: 75)
+        .frame(
+            width: 150,
+            height: 75)
         .buttonStyle(.borderedProminent)
         
     }
+    
+    func addButtonToEnabled(_ title: String) {
+        if enabledButtons.contains(title) {
+            enabledButtons.removeAll { string in
+                string == title
+            }
+        } else {
+            enabledButtons.append(title)
+        }
+    }
+    
 }
 
 #Preview {
