@@ -7,117 +7,85 @@
 
 import SwiftUI
 
+struct Pokemon {
+    var name: String
+    var isDisabled: Bool
+}
+extension Pokemon {
+    static var dummyPokemon1Row = [
+        Pokemon(name: "Cobaloin", isDisabled: false),
+        Pokemon(name: "Terrakion", isDisabled: false)]
+    
+    static var dummyPokemon2Row = [
+        Pokemon(name: "Virizion", isDisabled: false),
+        Pokemon(name: "Keldeo", isDisabled: false)]
+    
+    @State static var allPokemon = ["Cobaloin", "Terrakion", "Virizion", "Keldeo"]
+    
+}
+
 struct ContentView: View {
     
     @State var enabledButtons = [String]()
     @State var isHidden = Bool()
-    @State var button1Selected = Bool()
-    @State var button2Selected = Bool()
-    @State var button3Selected = Bool()
-    @State var button4Selected = Bool()
+    @State var activeButton = String()
+    
+    @State var pokemonRow1 = Pokemon.dummyPokemon1Row
+    @State var pokemonRow2 = Pokemon.dummyPokemon2Row
+    @State var allPokemon = Pokemon.allPokemon
     
     var body: some View {
         ZStack(alignment: .top) {
             Color
                 .black
                 .ignoresSafeArea()
-            Text("Favorite Swords of Justice")
-                .foregroundStyle(.white)
-                .font(.largeTitle)
-                .padding(75)
-                Spacer()
+            
+                
             VStack {
-                Spacer()
-                Spacer()
+                Text("Favorite Swords of Justice")
+                    .foregroundStyle(.white)
+                    .font(.largeTitle)
+                    .padding(75)
+                    
                 HStack {
-                    createButton(
-                        title: "Cobaloin",
-                        enabled: button1Selected,
-                        id: 1)
-                    createButton(
-                        title: "Terrakion",
-                        enabled: button2Selected,
-                        id: 2)
+                    ForEach($pokemonRow1, id: \.name) { $pokemon in
+                        PokemonRowView(pokemon: $pokemon, allPokemon: $allPokemon, isHidden: $isHidden)
+                    }
                 }
                 HStack {
-                    createButton(
-                        title: "Virizion",
-                        enabled: button3Selected,
-                        id: 3)
-                    createButton(
-                        title: "Keldeo",
-                        enabled: button4Selected,
-                        id: 4)
+                    ForEach($pokemonRow2, id: \.name) { $pokemon in
+                        PokemonRowView(pokemon: $pokemon, allPokemon: $allPokemon, isHidden: $isHidden)
+                    }
                 }
-                Spacer()
-                Text("You picked \(enabledButtons.joined(separator: ", "))")
+                Text("You picked \(allPokemon.joined())")
                     .foregroundStyle(!isHidden ? .black : .white)
                     .font(
                         .title2)
                 createSubmitButton(
-                    width: 200)
+                    width: 200, pokemon: allPokemon)
                 Spacer()
             }
             Spacer()
         }
-        
-        
     }
     
-    func createButton(title: String, enabled: Bool, id: Int) -> some View {
+    func createSubmitButton(width: CGFloat, pokemon: [String]) -> some View {
         Button {
-            addButtonToEnabled(title)
             
-            button1Selected
-                .toggle()
-            print(enabledButtons)
-        } label: {
-            Text(title)
-                .foregroundStyle(
-                    .white)
-                
-        }
-        
-        .frame(
-            width: 100,
-            height: 100)
-        .background(enabledButtons.contains(title) ? .gray : .green)
-//        .disabled(isDisabled)
-        .cornerRadius(24)
-        
-    }
-    
-    func createSubmitButton(width: CGFloat) -> some View {
-        Button {
-            print("Submit Tapped")
-            isHidden
-                .toggle()
-            if isHidden == false {
-                enabledButtons.removeAll()
+            if pokemon.count == 1 {
+                isHidden.toggle()
             }
+            
         } label: {
             Text("Submit Answers")
         }
-        
-        .frame(
-            width: 150,
-            height: 75)
+        .frame(width: 150, height: 75)
         .buttonStyle(.borderedProminent)
         
     }
-    
-    func addButtonToEnabled(_ title: String) {
-        if enabledButtons.contains(title) {
-            enabledButtons.removeAll { string in
-                string == title
-            }
-        } else {
-            enabledButtons.append(title)
-        }
-    }
-    
 }
 
 #Preview {
     ContentView()
+
 }
