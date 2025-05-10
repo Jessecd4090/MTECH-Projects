@@ -12,57 +12,61 @@ struct Pokemon {
     var isDisabled: Bool
 }
 extension Pokemon {
-    static var dummyPokemon1Row = [
-        Pokemon(name: "Cobaloin", isDisabled: false),
-        Pokemon(name: "Terrakion", isDisabled: false)]
+    @State static var dummyPokemon1Row = [
+        Pokemon(name: "Cobaloin",
+                isDisabled: false),
+        Pokemon(name: "Terrakion",
+                isDisabled: false)]
     
     static var dummyPokemon2Row = [
-        Pokemon(name: "Virizion", isDisabled: false),
-        Pokemon(name: "Keldeo", isDisabled: false)]
+        Pokemon(name: "Virizion",
+                isDisabled: false),
+        Pokemon(name: "Keldeo",
+                isDisabled: false)]
     
     @State static var allPokemon = ["Cobaloin", "Terrakion", "Virizion", "Keldeo"]
+    @State static var favoritePokemon = String()
+    
+    @State static var TESTPokemon = String()
     
 }
 
 struct ContentView: View {
     
-    @State var enabledButtons = [String]()
     @State var isHidden = Bool()
-    @State var activeButton = String()
-    
     @State var pokemonRow1 = Pokemon.dummyPokemon1Row
     @State var pokemonRow2 = Pokemon.dummyPokemon2Row
     @State var allPokemon = Pokemon.allPokemon
+    @State var favoritePokemon = Pokemon.favoritePokemon
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color
-                .black
+            Color.black
                 .ignoresSafeArea()
-            
-                
             VStack {
-                Text("Favorite Swords of Justice")
+                Text("Favorite Sword of Justice \n (Pokemon)")
                     .foregroundStyle(.white)
                     .font(.largeTitle)
-                    .padding(75)
-                    
+                    .multilineTextAlignment(.center)
+                    .padding()
+                Spacer()
                 HStack {
                     ForEach($pokemonRow1, id: \.name) { $pokemon in
-                        PokemonRowView(pokemon: $pokemon, allPokemon: $allPokemon, isHidden: $isHidden)
+                        PokemonRowView(pokemon: $pokemon, allPokemon: $allPokemon, favoritePokemon: $favoritePokemon, isHidden: $isHidden)
                     }
                 }
                 HStack {
                     ForEach($pokemonRow2, id: \.name) { $pokemon in
-                        PokemonRowView(pokemon: $pokemon, allPokemon: $allPokemon, isHidden: $isHidden)
+                        PokemonRowView(pokemon: $pokemon, allPokemon: $allPokemon, favoritePokemon: $favoritePokemon, isHidden: $isHidden)
                     }
                 }
-                Text("You picked \(allPokemon.joined())")
+                Text("You picked \(favoritePokemon)")
                     .foregroundStyle(!isHidden ? .black : .white)
                     .font(
-                        .title2)
+                        .largeTitle)
+                    .padding()
                 createSubmitButton(
-                    width: 200, pokemon: allPokemon)
+                    width: 300, pokemon: allPokemon)
                 Spacer()
             }
             Spacer()
@@ -72,14 +76,18 @@ struct ContentView: View {
     func createSubmitButton(width: CGFloat, pokemon: [String]) -> some View {
         Button {
             
-            if pokemon.count == 1 {
+            if !favoritePokemon.isEmpty {
                 isHidden.toggle()
             }
+//            if pokemon.count == 1 {
+//                isHidden.toggle()
+//            }
             
         } label: {
             Text("Submit Answers")
+                .font(.title2)
         }
-        .frame(width: 150, height: 75)
+        .frame(width: width, height: 75)
         .buttonStyle(.borderedProminent)
         
     }

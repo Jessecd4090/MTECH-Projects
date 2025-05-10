@@ -11,37 +11,33 @@ import SwiftUI
 struct PokemonRowView: View {
     @Binding var pokemon: Pokemon
     @Binding var allPokemon: [String]
+    @Binding var favoritePokemon: String
+    
     @Binding var isHidden: Bool
     var body: some View {
-            Button {
+        Button {
+            
+            if favoritePokemon.isEmpty {
                 pokemon.isDisabled.toggle()
-                if isHidden == false {
-                    if allPokemon.contains(where: { $0 == pokemon.name }) {
-                        allPokemon.removeAll(where: { $0 == pokemon.name })
-                    } else {
-                        allPokemon.append("\(pokemon.name)")
-                    }
-                } else {
-                    if allPokemon.contains(where: { $0 == pokemon.name }) {
-                        allPokemon.removeAll(where: { $0 == pokemon.name })
-                    } else {
-                        allPokemon.append("\(pokemon.name)")
-                    }
-                    isHidden.toggle()
+                if pokemon.isDisabled == true {
+                    favoritePokemon.append(pokemon.name)
                 }
-                print(allPokemon)
-            } label: {
-                Text("\(pokemon.name)")
-                    .foregroundStyle(.white)
+            } else {
+                favoritePokemon.removeAll()
             }
-            .frame(
-                width: 100,
-                height: 100)
-            
-//            .disabled(pokemon.isDisabled)
-            .background(pokemon.isDisabled ? .gray : .green)
-            .cornerRadius(24)
-            
-            .padding()
+            print(favoritePokemon)
+        } label: {
+            Text("\(pokemon.name)")
+                .foregroundStyle(.white)
+                .font(.system(size: 30))
+        }
+        .frame(width: 150, height: 150)
+        .background(favoritePokemon == pokemon.name ? .green : .gray)
+        .cornerRadius(24)
+        .padding()
     }
+}
+
+#Preview(traits: .sizeThatFitsLayout) {
+    PokemonRowView(pokemon: Pokemon.$dummyPokemon1Row[0], allPokemon: Pokemon.$allPokemon, favoritePokemon: Pokemon.$TESTPokemon, isHidden: Pokemon.$dummyPokemon1Row[0].isDisabled)
 }
