@@ -13,7 +13,6 @@ struct CreateSectionView: View {
     @State var newToDoSection = ""
     @State var todoController: TodosController
     var body: some View {
-        
         VStack {
             Text("New Section")
                 .font(.largeTitle)
@@ -23,8 +22,8 @@ struct CreateSectionView: View {
             TextField("New Section", text: $newToDoSection)
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 25).stroke(.gray, style: StrokeStyle(lineWidth: 0.5)))
-                .frame(width: 275)
-                .padding(300)
+                .frame(width: 350)
+                .padding(260)
             Button {
                 if !newToDoSection.isEmpty {
                     addSection(for: TodoSection(sectionTitle: newToDoSection, todos: []))
@@ -39,7 +38,7 @@ struct CreateSectionView: View {
                     .background(RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)))
             }
             .padding()
-            
+            Spacer()
         }
     }
     func addSection(for sectionTitle: TodoSection?) {
@@ -48,14 +47,6 @@ struct CreateSectionView: View {
         if !todoController.sections.contains(sectionTitle) {
             todoController.sections.append(sectionTitle)
         }
-//        if let sectionExsists = todoController.sections.firstIndex(where: { $0 == sectionTitle }) {
-//            
-//        } else {
-//            todoController.sections.append(sectionTitle ?? TodoSection(sectionTitle: "TEST", todos: []))
-//        }
-//        if let sectionIndex = todoController.sections.firstIndex(where: { $0 == sectionTitle }) {
-//            todoController.sections[sectionIndex].todos.append(Todo(markedComplete: false, title: toDoTitle))
-//        }
     }
 }
 

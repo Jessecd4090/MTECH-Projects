@@ -46,7 +46,10 @@ struct CreateToDoView: View {
                     } label: {
                         Text("Create New Section")
                     }
-                    .buttonStyle(.borderedProminent)
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0))
+                    .background(RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)))
                 }
                 Button {
                     if !newToDoText.isEmpty {
@@ -56,7 +59,7 @@ struct CreateToDoView: View {
                         dismiss()
                     }
                 } label: {
-                    Text("Create")
+                    Text("Create New ToDo")
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0))
@@ -90,8 +93,6 @@ struct CreateToDoView_Previews: PreviewProvider {
     static var previews: some View {
         CreateToDoView(todoController: TodosController())
     }
-    
-    
 }
 
 #Preview {

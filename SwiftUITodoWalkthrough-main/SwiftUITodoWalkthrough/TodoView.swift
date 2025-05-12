@@ -44,7 +44,7 @@ struct TodoView: View {
         }
     }
     
-    func deleteToDos(at offsets: IndexSet, from section: TodoSection) {
+    private func deleteToDos(at offsets: IndexSet, from section: TodoSection) {
         // Delete ToDo
         if let index = todoController.sections.firstIndex(of: section) {
             todoController.sections[index].todos.remove(atOffsets: offsets)
