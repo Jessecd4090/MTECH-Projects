@@ -9,10 +9,13 @@ import SwiftUI
 
 @main
 struct DragonDexApp: App {
+    @StateObject var settings = AppSettings()
+    
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            DragonList(defaultOn: true)
+            DragonList()
+                .environmentObject(settings)
         }
     }
 }

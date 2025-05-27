@@ -8,34 +8,36 @@
 import SwiftUI
 
 struct Settings: View {
-    @AppStorage("defaultOn") var defaultOn = true
-    @State var defaultColor = Color.white
-    @State var changedColor = Color.cyan
+    @EnvironmentObject var settings: AppSettings
+    
     var body: some View {
         ZStack {
-            if defaultOn == false {
-                changedColor.ignoresSafeArea()
-            }
             VStack {
+                
                 Text("Settings")
                     .font(.largeTitle)
                 Spacer()
-                Button {
-                    defaultOn.toggle()
-                    print(defaultOn)
-                } label: {
-                    Text("Change Background Color")
-                }
-                .buttonStyle(.borderedProminent)
+                ColorPicker("Background Color", selection: $settings.backgroundColor)
+                    .frame(width: 235, height: 150)
+                    .padding(100)
+                
                 Spacer()
+                    
             }
+            .background(settings.backgroundColor)
+
             
         }
     }
     // defaultOn ? defaultColor : changedColor
 }
 
+class AppSettings: ObservableObject {
+    @Published var backgroundColor: Color = .white
+}
+
 
 #Preview {
     Settings()
+        .environmentObject(AppSettings())
 }

@@ -9,55 +9,54 @@ import SwiftUI
 
 struct DragonList: View {
     @State var dragons = Dragon.dragons
-    @State var router = RootRouter()
-    @AppStorage("defaultOn") var defaultOn = true
+    @State private var router = RootRouter()
+    @EnvironmentObject var settings: AppSettings
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
             Spacer()
             Text("Dragon List")
                 .font(.largeTitle)
-            ZStack {
-                defaultOn ? Color.cyan : Color.white
-                List {
-                    ForEach(dragons) { dragon in
-                        Button {
-                            router.navigate(to: .detail(dragon: dragon))
-                        } label: {
-                            HStack{
-                                Image(dragon.name)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                                Text(dragon.name)
-                                    .font(.title3)
-                            }
+            List {
+                ForEach(dragons) { dragon in
+                    Button {
+                        router.navigate(to: .detail(dragon: dragon))
+                    } label: {
+                        HStack{
+                            Image(dragon.name)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                            Text(dragon.name)
+                                .font(.title3)
                         }
                     }
-                    
                 }
-                
-                .navigationDestination(for: RootRouter.Route.self) { route in
-                    router.view(for: route)
-                }
-                
-                .toolbar(content: {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            router.navigate(to: .settings)
-                        } label: {
-                            Image(systemName: "gear.circle")
-                        }
-                    }
-                })
                 
             }
+            .scrollContentBackground(.hidden)
+            .background(settings.backgroundColor)
+            .navigationDestination(for: RootRouter.Route.self) { route in
+                router.view(for: route)
+            }
+            
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        router.navigate(to: .settings)
+                    } label: {
+                        Image(systemName: "gear.circle")
+                    }
+                }
+            })
+            
+            /// Need to still fix this
+//            defaultOn ? Color.white : Color.cyan
             
         }
-        
         .environment(router)
     }
 }
 
 #Preview {
-    DragonList(defaultOn: Settings().defaultOn)
+    DragonList()
 }

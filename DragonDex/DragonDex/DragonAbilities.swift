@@ -8,27 +8,37 @@
 import SwiftUI
 
 struct DragonAbilities: View {
-    @State var dragon: Dragon
+    let dragon: Dragon
+    @State var router = RootRouter()
+    @EnvironmentObject var settings: AppSettings
+    
     var body: some View {
-        Text("\(dragon.name) Abilities")
-            .font(.largeTitle)
-        
-        Image(dragon.name)
-            .resizable()
-            .scaledToFit()
         VStack {
+            Text("\(dragon.name) Abilities")
+                .font(.largeTitle)
             
-            ForEach(dragon.abilities, id: \.self) { thing in
-                Text(thing)
-                    .font(.title)
-                Text(dragon.abilityDescription)
-                    .frame(width: 350)
+            
+            Image(dragon.name)
+                .resizable()
+                .scaledToFit()
+            VStack {
+                
+                ForEach(dragon.abilities, id: \.self) { thing in
+                    Text(thing)
+                        .font(.title)
+                    Text(dragon.abilityDescription)
+                        .frame(width: 400)
+                        .padding()
+                }
+                Spacer()
             }
-            Spacer()
+            
         }
+        .background(settings.backgroundColor)
     }
 }
 
 #Preview {
     DragonAbilities(dragon: Dragon.dragons[0])
+        .environmentObject(AppSettings())
 }

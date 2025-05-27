@@ -10,12 +10,11 @@ struct Dragon: Identifiable, Hashable {
     var id: Int
     var name: String
     var species: String
-    var largeImage: Image {
-        Image(name)
-    }
+    var largeImage: Image { Image(name) }
     var abilities: [String]
     var abilityDescription: String
     var description: String
+    
     @State static var dragons = [
         Dragon(id: 6,
                name: "Charizard",

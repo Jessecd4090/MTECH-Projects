@@ -23,10 +23,10 @@ class RootRouter {
         switch route {
         case .detail(dragon: let dragon):
             DragonOverView(dragon: dragon)
-        case .settings:
-            Settings()
         case .abilities(dragon: let dragon):
             DragonAbilities(dragon: dragon)
+        case .settings:
+            Settings()
         }
     }
     
