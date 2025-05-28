@@ -8,53 +8,65 @@
 import SwiftUI
 
 struct DogView: View {
-    @State var dog: Dog
+    @State var dogData: DogData
     @State var dogPic: UIImage?
+    @State var dogName = String()
+    @State var dogs = [Dog]()
+    @State var animationStarted = Bool()
     var body: some View {
         NavigationStack {
             VStack {
-                Image(systemName: "x.circle")
+                
+                Image(uiImage: (dogPic ?? UIImage(systemName: "person.slash.fill")!))
                     .resizable()
-                    .scaledToFit()
+                    .scaleEffect(animationStarted ? 1.5 : 1)
+                    .frame(height: 350)
+                    .padding()
+                
+                TextField("Title", text: $dogName)
+                    .frame(width: 300, height: 40)
+                    .border(Color.cyan)
                 
                 Button {
                     getDog()
+                    withAnimation(.spring(duration: 1)) {
+                        animationStarted.toggle()
+                    } completion: {
+                        withAnimation(.spring(duration: 0.75)) {
+                            animationStarted.toggle()
+                        }
+                        
+                    }
+                    if !dogName.isEmpty {
+                        let dog = Dog(name: dogName, image: dogPic!)
+                        dogs.append(dog)
+                    }
                 } label: {
-                    Text("Get New Dog")
+                    Text("Save & Get New Dog")
                 }
                 .padding(75)
                 
             }
-            .navigationTitle("Get New Dog")
+            List {
+                ForEach(self.$dogs, id: \.name) { dog in
+                    DogListCell(dog: dog)
+                }
+            }
         }
-        
     }
+    
     func getDog() {
         Task {
             do {
-                dog = await DogNetwork.getDogFromAPI()
-                let dogImageURL = dog.image
+                dogData = await DogNetwork.getDogFromAPI()
+                let dogImageURL = dogData.image
                 dogPic = await DogNetwork.getDogPic(url: dogImageURL)
                 print(dogPic)
             }
         }
     }
-//    func getDogPic(url: String) async -> UIImage {
-//        do {
-//            // Define URL
-//            let url = URL(string: url)!
-//            // Get Data from URL
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//            // Convert the data to some codable object
-//            guard let dogImage = UIImage(data: data) else { return UIImage(systemName: "person.fill")! }
-//            return dogImage
-//        } catch {
-//            print(error)
-//        }
-//        return UIImage()
-//    }
 }
 
 #Preview {
-    DogView(dog: Dog(image: "TEST"))
+    DogView(dogData: DogData(image: "TEST"))
 }

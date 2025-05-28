@@ -12,7 +12,7 @@ struct RandomAPIsPart_2App: App {
     var body: some Scene {
         WindowGroup {
             
-            DogView(dog: Dog(image: "TEST"))
+            DogView(dogData: DogData(image: "TEST"))
         }
     }
     func getDog() {
