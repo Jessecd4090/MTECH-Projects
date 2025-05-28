@@ -9,11 +9,12 @@ import Foundation
 import UIKit
 import SwiftUI
 
-struct Dog {
+struct Dog: Identifiable {
+    var id = UUID()
     var name: String
     var image: UIImage
     
     
-    static var dummyDogs = [Dog(name: "TEST-1", image: UIImage(systemName: "person")!), Dog(name: "TEST-2", image: UIImage(systemName: "person")!), Dog(name: "TEST-3", image: UIImage(systemName: "person")!)]
+    @State static var dummyDog = Dog(name: "TEST-1", image: UIImage(systemName: "person")!)
     
 }

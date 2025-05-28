@@ -11,18 +11,7 @@ import SwiftUI
 struct RandomAPIsPart_2App: App {
     var body: some Scene {
         WindowGroup {
-            
-            DogView(dogData: DogData(image: "TEST"))
-        }
-    }
-    func getDog() {
-        Task {
-            do {
-                let dogData = await DogNetwork.getDogFromAPI()
-                let dogImageURL = dogData.image
-                let dogImage = await DogNetwork.getDogPic(url: dogImageURL)
-                print(dogImage)
-            }
+            DogView()
         }
     }
 }

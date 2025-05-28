@@ -36,5 +36,5 @@ struct DogDetail: View {
 }
 
 #Preview {
-    DogDetail(dog: .constant(Dog(name: "TEST", image: UIImage(systemName: "person.slash.fill")!)))
+    DogDetail(dog: Dog.$dummyDog)
 }
