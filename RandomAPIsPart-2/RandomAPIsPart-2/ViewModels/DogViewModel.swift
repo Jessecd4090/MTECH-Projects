@@ -8,7 +8,23 @@
 import Foundation
 import SwiftUI
 import UIKit
-
-class DogViewModel: Observable {
-    @Published var dogPic = UIImage()
+@Observable
+class DogViewModel {
+    var dogPic = UIImage()
+    var dogName = String()
+    var dogs = [Dog]()
+    var animationToggle = Bool()
+    
+    
+    // API Call
+    func getDog() {
+        Task {
+            do {
+                let dogData = await DogNetwork.getDogFromAPI()
+                let dogImageURL = dogData.image
+                dogPic = await DogNetwork.getDogPic(url: dogImageURL)
+                print(dogPic)
+            }
+        }
+    }
 }

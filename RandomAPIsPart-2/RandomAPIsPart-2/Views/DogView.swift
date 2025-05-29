@@ -9,38 +9,35 @@ import SwiftUI
 
 struct DogView: View {
     
-    @State var dogPic = UIImage()
-    @State var dogName = String()
-    @State var dogs = [Dog]()
-    @State var animationToggle = Bool()
+    @State private var viewModel = DogViewModel()
     
     var body: some View {
         NavigationStack {
             
             VStack {
-                Image(uiImage: (dogPic))
+                Image(uiImage: (viewModel.dogPic))
                     .resizable()
                     .frame(height: 350)
-                    .scaleEffect(animationToggle ? 1.5 : 1)
+                    .scaleEffect(viewModel.animationToggle ? 1.5 : 1)
                     .padding()
                 
-                TextField("Title", text: $dogName)
+                TextField("Title", text: $viewModel.dogName)
                     .frame(width: 250, height: 40)
                     .border(Color.cyan)
                 
                 Button {
-                    getDog()
+                    viewModel.getDog()
                     withAnimation(.spring(duration: 1)) {
-                        animationToggle.toggle()
+                        viewModel.animationToggle.toggle()
                     } completion: {
                         withAnimation(.spring(duration: 0.75)) {
-                            animationToggle.toggle()
+                            viewModel.animationToggle.toggle()
                         }
                     }
                     // Checks to make sure name and pic has value
-                    if !dogName.isEmpty && dogPic != UIImage() {
-                        let dog = Dog(name: dogName, image: dogPic)
-                        dogs.append(dog)
+                    if !viewModel.dogName.isEmpty && viewModel.dogPic != UIImage() {
+                        let dog = Dog(name: viewModel.dogName, image: viewModel.dogPic)
+                        viewModel.dogs.append(dog)
                     }
                 } label: {
                     Text("Save & Get New Dog")
@@ -48,30 +45,20 @@ struct DogView: View {
                 /* Not sure which element this is on, but it
                  allows me to pull a dog pic on open
                  */
-                .onAppear(perform: getDog)
+                .onAppear(perform: viewModel.getDog)
                 .padding(50)
             }
             
             List {
                 // Make sure to make the data identifiable for easy listing
-                ForEach(self.$dogs) { dog in
+                ForEach($viewModel.dogs) { dog in
                     DogListCell(dog: dog)
                 }
             }
         }
     }
     
-    // API Call
-    func getDog() {
-        Task {
-            do {
-                let dogData = await DogNetwork.getDogFromAPI()
-                let dogImageURL = dogData.image
-                dogPic = await DogNetwork.getDogPic(url: dogImageURL)
-                print(dogPic)
-            }
-        }
-    }
+    
 }
 
 #Preview {
