@@ -15,45 +15,26 @@ struct ContentView: View {
         
             
         GeometryReader { screenSize in
-            HStack {
-                VStack {
+            VStack {
+                HStack {
                     
-                    Button {
-                        
-                    } label: {
-                        Text("First Employee")
-                    }
-                    .frame(width: screenSize.size.width / 4, height: screenSize.size.height / 4)
-                    .border(Color.gray)
+                    Text("First Employee")
+                    .frame(width: screenSize.size.width / 2, height: screenSize.size.height / 2)
+                    .background(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)).fill(.gray))
                     
-                    
-                    Button {
-                        
-                    } label: {
-                        Text("Second Employee")
-                    }
-                    
-                    .frame(width: screenSize.size.width / 4, height: screenSize.size.height / 4)
+                    Text("Second Employee")
+                    .frame(width: screenSize.size.width / 2, height: screenSize.size.height / 2)
                     .border(Color.gray)
                 }
                 .padding()
                 
-                
-                VStack {
-                    Button {
-                        
-                    } label: {
-                        Text("Third Employee")
-                    }
-                    .frame(width: screenSize.size.width / 4, height: screenSize.size.height / 4)
+                HStack {
+                    Text("Third Employee")
+                    .frame(width: screenSize.size.width / 2, height: screenSize.size.height / 2)
                     .border(Color.gray)
                     
-                    Button {
-                        
-                    } label: {
-                        Text("Fourth Employee")
-                    }
-                    .frame(width: screenSize.size.width / 4, height: screenSize.size.height / 4)
+                    Text("Fourth Employee")
+                    .frame(width: screenSize.size.width / 2, height: screenSize.size.height / 2)
                     .border(Color.gray)
                 }
             }
