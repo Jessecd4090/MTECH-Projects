@@ -16,12 +16,13 @@ enum ViewState {
 
 struct ContentView: View {
     
+    @State var users = UserTest()
     @State var username: String = ""
     @State var password: String = ""
     @State private var state: ViewState = .loading
     @State var isHidden = true
     
-    var loginButtonStyle = ViewStyles.loginButtonStyle()
+    var loginStyle = ViewStyles.loginButtonStyle()
     var forgotPasswordStyle = ViewStyles.forgotButtonStyle()
     
     var body: some View {
@@ -45,13 +46,21 @@ struct ContentView: View {
                 if username != "" && password.isEmpty {
                     state = .error("Please enter password")
                 }
-                if username != "" && password != "" {
-                    state = .success("Nice Username and Password")
+                // Login check using testUser
+                for user in users.savedUsers {
+                    if username == user.username && password == user.password {
+                        state = .success("Successful Login!!")
+                        // Invalid Username
+                    } else if username != user.username {
+                        state = .error("Invalid Email")
+                    } else if password != user.password {
+                        state = .error("Invalid Password")
+                    }
                 }
             } label: {
                 Text("Login")
             }
-            .buttonStyle(loginButtonStyle)
+            .buttonStyle(loginStyle)
         }
         
         Button {
