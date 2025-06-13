@@ -30,11 +30,10 @@ struct ContentView: View {
                                             .resizable()
                                             .frame(width: 50, height: 50)
                                     }
-                                    .background(Circle()
-                                        .frame(width: 75, height: 75)
-                                        .foregroundStyle(.blue))
+                                    .background(Circle().frame(width: 75, height: 75).foregroundStyle(.blue))
+                                    .padding()
                                     Text(person.name)
-                                    Text("Person Descript")
+                                    Text(person.description)
                                     
                                 }
                                 .frame(width: geometry.size.width / CGFloat(columnCount) - 20, height: geometry.size.height / CGFloat(rowCount))
