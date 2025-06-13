@@ -27,5 +27,14 @@ struct People {
         People(
             name: "Jestin",
             description: "Ventilation tech"),
-        People(name: "Heather", description: "Elderly Caretaker")]
+        People(
+            name: "Heather",
+            description: "Elderly Caretaker"),
+        People(
+            name: "Cass",
+            description: "Sales Rep"),
+        People(
+            name: "Fake Person",
+            description: "Nice"),
+        People(name: "Fake 2 Person", description: "Cool")]
 }
