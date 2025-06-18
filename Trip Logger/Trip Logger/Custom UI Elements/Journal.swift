@@ -25,15 +25,18 @@ struct Journal: View {
                 TextField("Notes", text: $notes)
                     .textFieldStyle(.roundedBorder)
             } else {
-                Text(journalEntry.text)
-                    .font(.body)
+                if !journalEntry.text.isEmpty {
+                    Text(journalEntry.text)
+                        .font(.body)
+                } else {
+                    Text("No Notes")
+                        .font(.body)
+                }
             }
             PhotoScrollView(journalEntry: journalEntry)
         }
     }
 }
-
-
 
 struct JournalTopBar: View {
     @Binding var journalEntry: JournalEntry?
@@ -59,7 +62,6 @@ struct JournalTopBar: View {
                     }
                 }
             }
-            
             Spacer()
             if editing {
                 TextField("Journal Entry Name", text: $journalEntryName)
@@ -69,9 +71,7 @@ struct JournalTopBar: View {
                 Text(journalEntry?.name ?? "Journal Entry")
                     .font(.title)
             }
-            
             Spacer()
-            
             Button("Dismiss") {
                 journalEntry = nil
             }
