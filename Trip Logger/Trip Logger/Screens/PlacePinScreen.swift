@@ -13,28 +13,37 @@ import PhotosUI
 
 
 struct PlacePinScreen: View {
-//    @Binding var tripName: String
     @State var trip: Trip
-    @State private var journalEntry = JournalEntry()
+    @State var locationManager = CLLocationManager()
+    let applePark = CLLocationCoordinate2D(latitude: 37.3346, longitude: -122.0090)
     
     var body: some View {
         VStack {
             MapReader { reader in // Allows conversion of a touch gesture into coordinates
                 
-                Map {
+                Map(initialPosition: .region(MKCoordinateRegion(
+                        center: applePark,
+                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))) {
                     // TODO: Display the pin the user placed
-                    Marker(item: journalEntry.location.mapItem ?? MKMapItem())
+                            if let lastEntry = trip.journalEntries.last {
+//                                Marker(item: lastEntry.location.mapItem!)
+                                
+//                                Marker(item: lastEntry.location.mapItem!)
+                                Marker(lastEntry.name, coordinate: lastEntry.location.coordinate!)
+                            }
                     
                 }
-                
-                .mapStyle(.imagery)
+                .onAppear(perform: {
+                    locationServiceCheck()
+                })
+                .mapStyle(.standard)
                 .onTapGesture { location in
                     placePin(reader: reader, location: location)
                 }
             }
             Text("Trip name: \(trip.name)")
             NavigationLink {
-                    SetUpPinScreen(trip: $trip)
+                SetUpPinScreen(trip: trip)
             } label: {
                 Text("Next")
             }
@@ -47,14 +56,14 @@ struct PlacePinScreen: View {
     
     func placePin(reader: MapProxy, location: CGPoint) {
         if let coordinate = reader.convert(location, from: .local) {
-            journalEntry = JournalEntry(name: trip.name, location: Location(latitude: coordinate.latitude, longitude: coordinate.longitude))
+            let journalEntry = JournalEntry(name: trip.name, location: Location(latitude: coordinate.latitude, longitude: coordinate.longitude))
             trip.journalEntries.append(journalEntry)
-            
-                       
-            
         }
     }
     
+    func locationServiceCheck() {
+        locationManager.requestWhenInUseAuthorization()
+    }
 }
 
 #Preview {

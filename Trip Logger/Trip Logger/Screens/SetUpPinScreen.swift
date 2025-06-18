@@ -13,7 +13,9 @@ import PhotosUI
 
 struct SetUpPinScreen: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var trip: Trip
+    @Environment(\.modelContext) var modelContext
+//    @Environment(\.router) var router
+    @State var trip: Trip
     @State private var pinName: String = ""
     @State private var notes: String = ""
     
@@ -33,6 +35,8 @@ struct SetUpPinScreen: View {
             }
             PhotoScrollView(journalEntry: trip.journalEntries.first!)
             Button {
+                modelContext.insert(trip)
+                dismiss()
                 dismiss()
                 
             } label: {
@@ -44,5 +48,5 @@ struct SetUpPinScreen: View {
 }
 
 #Preview {
-    SetUpPinScreen(trip: .constant(Trip(name: "TEST")))
+    SetUpPinScreen(trip: .mock())
 }
