@@ -22,24 +22,21 @@ struct PlacePinScreen: View {
             MapReader { reader in // Allows conversion of a touch gesture into coordinates
                 
                 Map(initialPosition: .region(MKCoordinateRegion(
-                        center: applePark,
-                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))) {
-                    // TODO: Display the pin the user placed
-                            if let lastEntry = trip.journalEntries.last {
-//                                Marker(item: lastEntry.location.mapItem!)
-                                
-//                                Marker(item: lastEntry.location.mapItem!)
-                                Marker(lastEntry.name, coordinate: lastEntry.location.coordinate!)
-                            }
-                    
-                }
-                .onAppear(perform: {
-                    locationServiceCheck()
-                })
-                .mapStyle(.standard)
-                .onTapGesture { location in
-                    placePin(reader: reader, location: location)
-                }
+                    center: applePark,
+                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))) {
+                        // TODO: Display the pin the user placed
+                        if let lastEntry = trip.journalEntries.last {
+                            Marker(lastEntry.name, coordinate: lastEntry.location.coordinate!)
+                        }
+                        
+                    }
+                    .onAppear(perform: {
+                        locationServiceCheck()
+                    })
+                    .mapStyle(.standard)
+                    .onTapGesture { location in
+                        placePin(reader: reader, location: location)
+                    }
             }
             Text("Trip name: \(trip.name)")
             NavigationLink {
@@ -51,7 +48,7 @@ struct PlacePinScreen: View {
             .disabled(trip.journalEntries.isEmpty)
         }
         .navigationTitle("Place First Pin")
-
+        
     }
     
     func placePin(reader: MapProxy, location: CGPoint) {

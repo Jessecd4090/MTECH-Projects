@@ -23,7 +23,7 @@ struct NewTripScreen: View {
                     .scaledToFit()
                     .border(Color.gray.opacity(0.4))
                     .padding()
-                    
+                
             }
             .padding()
             

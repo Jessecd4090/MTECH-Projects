@@ -14,11 +14,9 @@ import PhotosUI
 struct SetUpPinScreen: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
-//    @Environment(\.router) var router
     @State var trip: Trip
     @State private var pinName: String = ""
     @State private var notes: String = ""
-    
     
     var body: some View {
         VStack {

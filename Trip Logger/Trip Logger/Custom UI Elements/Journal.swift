@@ -18,14 +18,12 @@ struct Journal: View {
     var body: some View {
         JournalTopBar(journalEntry: $journalEntry)
             .padding()
-        
         if let journalEntry {
             Text(journalEntry.date.formatted(date: .abbreviated, time: .omitted))
                 .font(.headline)
             if editing {
                 TextField("Notes", text: $notes)
                     .textFieldStyle(.roundedBorder)
-                    .frame(width: 125, height: 30)
             } else {
                 Text(journalEntry.text)
                     .font(.body)
