@@ -48,7 +48,6 @@ struct AuthController {
         let decoder = JSONDecoder()
         let user = try decoder.decode(User.self, from: data)
         
-        
         return user
     }
 }

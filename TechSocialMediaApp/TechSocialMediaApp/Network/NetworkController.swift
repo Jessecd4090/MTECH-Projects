@@ -16,55 +16,53 @@ struct NetworkController {
         case badResponse
     }
     
+    // Put all network calls here
     
+    // GET CALLS
     
-        // Put all network calls here
-    
-        // GET CALLS
-    
-        // GET UserProfile Call
-        func getUserProfile(userUUID: UUID, userSecret: UUID) async throws -> UserProfile {
-            try? await Task.sleep(for: .seconds(1))
-            // Cannot use httpBody for get requests must be components
-            guard var components = URLComponents(string: "\(API.url)/userProfile") else {
-                throw NetworkError.invalidURLEntry
-            }
-            // Set components
-            components.queryItems = [
-                URLQueryItem(name: "userUUID", value: "\(userUUID)"),
-                URLQueryItem(name: "userSecret", value: "\(userSecret)")
-            ]
-            // Define URL
-            guard let url = components.url else {
-                throw NetworkError.invalidURLComponents
-            }
-            // Create URLRequest using url
-            var request = URLRequest(url: url)
-            // Also denote what type of request, get or post
-            request.httpMethod = "GET"
-            // Set headers if present
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let config = URLSessionConfiguration.default
-            config.requestCachePolicy = .reloadIgnoringLocalCacheData
-            let session = URLSession(configuration: config)
-
-            
-            // Make request
-            let (data, response) = try await session.data(for: request)
-            // Ensure we have a good response
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw NetworkError.couldNotGetUser
-                
-            }
-            
-            // Decode our response data to usable object
-            let decoder = JSONDecoder()
-            let userProfile = try decoder.decode(UserProfile.self, from: data)
-            
-            return userProfile
+    // GET UserProfile Call
+    func getUserProfile(userUUID: UUID, userSecret: UUID) async throws -> UserProfile {
+        try? await Task.sleep(for: .seconds(1))
+        // Cannot use httpBody for get requests must be components
+        guard var components = URLComponents(string: "\(API.url)/userProfile") else {
+            throw NetworkError.invalidURLEntry
         }
-    // Get All Posts "Last requirement"
+        // Set components
+        components.queryItems = [
+            URLQueryItem(name: "userUUID", value: "\(userUUID)"),
+            URLQueryItem(name: "userSecret", value: "\(userSecret)")
+        ]
+        // Define URL
+        guard let url = components.url else {
+            throw NetworkError.invalidURLComponents
+        }
+        // Create URLRequest using url
+        var request = URLRequest(url: url)
+        // Also denote what type of request, get or post
+        request.httpMethod = "GET"
+        // Set headers if present
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        let session = URLSession(configuration: config)
+        
+        
+        // Make request
+        let (data, response) = try await session.data(for: request)
+        // Ensure we have a good response
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NetworkError.couldNotGetUser
+            
+        }
+        
+        // Decode our response data to usable object
+        let decoder = JSONDecoder()
+        let userProfile = try decoder.decode(UserProfile.self, from: data)
+        
+        return userProfile
+    }
+    // Get first 20 Posts "Last requirement"
     func getFirstTwentyPosts(userSecret: UUID) async throws -> [Post] {
         // Define components
         guard var components = URLComponents(string: "\(API.url)/posts") else {
@@ -180,7 +178,7 @@ struct NetworkController {
         // Check response and ensure good status code
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             let httpResponse = response as? HTTPURLResponse
-            print(httpResponse?.statusCode)
+            print("Status Code: \(String(describing: httpResponse?.statusCode))")
             throw NetworkError.badResponse
         }
         
@@ -189,6 +187,8 @@ struct NetworkController {
         
         return posts
     }
+    
+    // POST Calls
     
     func createPost(userSecret: UUID, title: String, body: String) async throws -> Post {
         // Initialize our sessions and request
@@ -210,7 +210,7 @@ struct NetworkController {
         // Ensure that we have a good status code
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 else {
             let httpResponse = response as? HTTPURLResponse
-            print(httpResponse?.statusCode)
+            print("Status Code: \(String(describing: httpResponse?.statusCode))")
             throw NetworkError.badResponse
         }
         
@@ -240,6 +240,34 @@ struct NetworkController {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         // Make request
+        let (_, response) = try await session.data(for: request)
+        
+        // Check response
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NetworkError.badResponse
+        }
+        print(httpResponse.statusCode)
+    }
+    
+    func editProfile(secret: UUID, profile: UserProfile) async throws -> UserProfile {
+        // Define session and request
+        let session = URLSession.shared
+        var request = URLRequest(url: URL(string: "\(API.url)/userProfile")!)
+        // Make credentials
+        let credentials: [String: Any] = [
+            "userSecret": secret.uuidString,
+            "profile": [
+                "userName": profile.userName,
+                "bio": profile.bio,
+                "techInterests": profile.techInterests
+            ]
+        ]
+        // Add json data to the body of request, also clarify that its a POST call
+        request.httpBody = try JSONSerialization.data(withJSONObject: credentials, options: .prettyPrinted)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Make Request
         let (data, response) = try await session.data(for: request)
         
         // Check response
@@ -248,7 +276,8 @@ struct NetworkController {
         }
         print(httpResponse.statusCode)
         
-        
+        let updatedProfile = try JSONDecoder().decode(UserProfile.self, from: data)
+        return updatedProfile
     }
     func deletePost(userSecret: UUID, postIDs: [Int]) async throws {
         // Define Components
@@ -262,7 +291,6 @@ struct NetworkController {
                 URLQueryItem(name: "postid", value: "\(postId)")
             ]
         }
-        
         // Define URL
         guard let url = components.url else {
             throw NetworkError.invalidURLComponents
@@ -275,9 +303,6 @@ struct NetworkController {
         let session = URLSession.shared
         // Make request
         let (_, _) = try await session.data(for: request)
-        
-        
     }
-        
-    }
+}
 
