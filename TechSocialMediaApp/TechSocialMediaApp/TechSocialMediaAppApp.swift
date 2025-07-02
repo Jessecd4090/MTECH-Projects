@@ -11,6 +11,7 @@ import SwiftUI
 struct TechSocialMediaAppApp: App {
     var body: some Scene {
         WindowGroup {
+//            LogInView()
             RootView()
         }
     }

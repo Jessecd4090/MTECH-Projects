@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Network Call object
 struct User: Decodable, Encodable {
     var firstName: String
     var lastName: String
@@ -15,5 +16,24 @@ struct User: Decodable, Encodable {
     var secret: UUID
     var userName: String
     
-    static var current: User?
+    init(firstName: String, lastName: String, email: String, userUUID: UUID, secret: UUID, userName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.userUUID = userUUID
+        self.secret = secret
+        self.userName = userName
+    }
+    init() {
+        self.firstName = ""
+        self.lastName = ""
+        self.email = ""
+        self.userUUID = UUID()
+        self.secret = UUID()
+        self.userName = ""
+    }
 }
+
+
+
+

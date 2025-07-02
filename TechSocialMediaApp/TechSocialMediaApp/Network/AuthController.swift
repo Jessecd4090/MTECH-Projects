@@ -1,5 +1,5 @@
 //
-//  AuthenticationController.swift
+//  AuthController.swift
 //  techSocialMediaApp
 //
 //  Created by Brayden Lemke on 10/25/22.
@@ -7,19 +7,23 @@
 
 import Foundation
 
-class AuthenticationController {
+
+
+struct AuthController {
     enum AuthError: Error, LocalizedError {
         case couldNotSignIn
     }
     
-
     /**
      Will make a request to authenticate the users credentials. If successful the User.current object will hold the signed in user.
      
      - Throws: If the user does not exist or if the API.url is invalid
      - Returns: A boolean depending on whether or not the operation was successful
      */
-    func signIn(email: String, password: String) async throws -> Bool {
+    // Post Call
+    func signIn(email: String, password: String) async throws -> User {
+        try? await Task.sleep(for: .seconds(2))
+        
         // Initialize our session and request
         let session = URLSession.shared
         var request = URLRequest(url: URL(string: "\(API.url)/signIn")!)
@@ -44,8 +48,7 @@ class AuthenticationController {
         let decoder = JSONDecoder()
         let user = try decoder.decode(User.self, from: data)
         
-        User.current = user
-
-        return true
+        
+        return user
     }
 }
