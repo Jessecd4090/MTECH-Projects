@@ -72,15 +72,11 @@ struct MainView: View {
                             
                         }
                         
-                        
                     }
                 }
             }
             
         }
-//        .sheet(isPresented: $editPostSheet, content: {
-//            EditPostView()
-//        })
         .sheet(isPresented: $newPostSheet) {
             NewPostView(viewModel: $viewModel)
         }
@@ -103,12 +99,6 @@ struct MainView: View {
                 
             }
         })
-//        .onAppear(perform: {
-//            Task {
-//                await getUserProfile()
-//                await getUserPosts()
-//            }
-//        })
         .task {
             await getUserProfile()
             await getUserPosts()
@@ -149,17 +139,6 @@ extension MainView {
         } catch {
             print(("GETTING_USER_POSTS_FAILED"))
         }
-//        if viewModel.usersPosts.isEmpty {
-//            viewModel.gettingUserPosts = true
-//            defer {
-//                viewModel.gettingUserPosts = false
-//            }
-//            do {
-//                try await viewModel.getUserPosts(userSecret: viewModel.user.secret, userID: viewModel.userProfile.userUUID)
-//            } catch {
-//                print("GETTING_USER_POSTS_FAILED: \(error)")
-//            }
-//        }
     }
     func getAllPosts() {
         Task {

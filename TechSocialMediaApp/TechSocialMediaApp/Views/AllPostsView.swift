@@ -12,7 +12,6 @@ struct AllPostsView: View {
     var body: some View {
         List {
             ForEach(viewModel.allPosts, id: \.postid) { post in
-                
                 VStack {
                     HStack {
                         Text(post.title)
@@ -23,7 +22,6 @@ struct AllPostsView: View {
                         Text("\(post.postid)")
                             .font(.caption)
                     }
-                    
                     Text(post.body)
                     HStack {
                         Text("Likes: ")

@@ -16,7 +16,7 @@ struct NewPostView: View {
         VStack {
             Text("New Post")
                 .font(.largeTitle)
-                Spacer()
+            Spacer()
             TextField("Post Title", text: $title)
                 .frame(maxWidth: 300)
                 .textFieldStyle(.roundedBorder)
@@ -25,22 +25,22 @@ struct NewPostView: View {
             TextEditor(text: $bodyText)
                 .frame(width: 300, height: 200)
                 .border(Color.gray.opacity(0.5))
-                Button("Save") {
-                    Task {
-                        do {
-                            try await viewModel.createPost(secret: viewModel.user.secret, title: title, body: bodyText)
-                            try await viewModel.getUserPosts(userSecret: viewModel.user.secret, userID: viewModel.userProfile.userUUID)
-                        } catch {
-                            print("CREATING_POST_FAILED_IN_VIEW: \(error)")
-                        }
+            Button("Save") {
+                Task {
+                    do {
+                        try await viewModel.createPost(secret: viewModel.user.secret, title: title, body: bodyText)
+                        try await viewModel.getUserPosts(userSecret: viewModel.user.secret, userID: viewModel.userProfile.userUUID)
+                    } catch {
+                        print("CREATING_POST_FAILED_IN_VIEW: \(error)")
                     }
-                    dismiss()
                 }
-                .buttonStyle(.borderedProminent)
-                Button("Cancel") {
-                    dismiss()
-                }
-                .buttonStyle(.borderedProminent)
+                dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+            Button("Cancel") {
+                dismiss()
+            }
+            .buttonStyle(.borderedProminent)
             Spacer()
         }
     }

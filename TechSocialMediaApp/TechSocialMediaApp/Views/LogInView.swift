@@ -20,6 +20,7 @@ struct LogInView: View {
                 .font(.title)
             TextField("Email", text: $email)
                 .textFieldStyle(.roundedBorder)
+                .border(Color.gray.opacity(0.5))
                 .onChange(of: email) {
                     errorMessage = ""
                 }
@@ -27,6 +28,7 @@ struct LogInView: View {
                 HStack {
                     SecureField("Password", text: $password)
                         .textFieldStyle(.roundedBorder)
+                        .border(Color.gray.opacity(0.5))
                         .padding(.bottom, 24)
                         .onChange(of: password) {
                             errorMessage = ""

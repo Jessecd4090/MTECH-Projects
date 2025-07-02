@@ -21,9 +21,9 @@ struct RootView: View {
                 LogInView(viewModel: $userViewModel)
             }
         }
-            
-        }
+        
     }
+}
 
 #Preview {
     RootView()
