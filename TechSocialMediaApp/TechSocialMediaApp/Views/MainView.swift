@@ -10,107 +10,58 @@ struct MainView: View {
     @Binding var viewModel: UserViewModel
     @State var newPostSheet = false
     @State var editPostSheet = false
+    @State var alertShowing = false
+    @State var editingPost = false
     var body: some View {
-        ZStack {
-            if viewModel.fetchingUserProfile {
-                progressView()
-            } else {
-                VStack {
-                    profileView()
+            VStack {
+                if viewModel.fetchingUserProfile {
+                    progressView()
+                } else {
                     VStack {
-                        Text("Posts")
-                            .font(.largeTitle)
-                    }
-                    Spacer()
-                    if viewModel.usersPosts.isEmpty {
-                        empyPostView()
-                        Spacer()
-                    } else {
-                        List {
-                            ForEach(viewModel.usersPosts, id: \.postid) { post in
-                                VStack {
-                                    HStack {
-                                        Text(post.title)
-                                            .fontWeight(.bold)
-                                        Spacer()
-                                        VStack {
-                                            Button("Edit") {
-                                                editPostSheet.toggle()
-                                            }
-                                            .sheet(isPresented: $editPostSheet) {
-                                                EditPostView(post: post, viewModel: $viewModel)
-                                            }
-                                            HStack {
-                                                Text("ID: ")
-                                                    .font(.caption)
-                                                Text("\(post.postid)")
-                                                    .font(.caption)
-                                            }
-                                        }
-                                    }
-                                    Text(post.body)
-                                    HStack {
-                                        Text("Comments Count: ")
-                                        Text("\(post.numComments)")
-                                    }
-                                    HStack {
-                                        Text("Likes: ")
-                                        Text("\(post.likes)")
-                                    }
-                                    HStack {
-                                        Text("Created At: ")
-                                        Text(post.createdDate)
-                                            .font(.caption)
-                                    }
-                                }
-                            }
-                            .onDelete { indexSet in
-                                Task {
-                                    await viewModel.deletePosts(at: indexSet)
-                                }
-                            }
-                            
+                        profileView()
+                            .padding(.trailing, 145)
+                        techInterestsAndBio()
+                        VStack {
+                            Text("Posts")
+                                .font(.largeTitle)
                         }
-                        
+                        Spacer()
+                        if viewModel.usersPosts.isEmpty {
+                            empyPostView()
+                            Spacer()
+                        } else {
+                            List {
+                                ForEach(viewModel.usersPosts, id: \.postid) { post in
+                                    postView(post: post, editingPost: editingPost)
+                                }
+                                .onDelete { indexSet in
+                                    Task {
+                                        await viewModel.deletePosts(at: indexSet)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-            
-        }
+        
+//        .toolbarVisibility(.visible, for: .navigationBar)
+        .toolbar(content: {
+            toolbarContent()
+        })
         .sheet(isPresented: $newPostSheet) {
             NewPostView(viewModel: $viewModel)
         }
         
-        .toolbar(content: {
-            if viewModel.fetchingUserProfile == false {
-                EditButton()
-                Menu("", systemImage: "gear") {
-                    addPostButton()
-                    NavigationLink("All Posts") {
-                        AllPostsView(viewModel: $viewModel)
-                    }
-                    Button("Delete All Users Posts") {
-                        Task {
-                            await viewModel.deleteAllPosts()
-                            try await viewModel.getUserPosts(userSecret: viewModel.user.secret, userID: viewModel.userProfile.userUUID)
-                        }
-                    }
-                }
-                
-            }
-        })
         .task {
             await getUserProfile()
             await getUserPosts()
-            
         }
     }
-    
 }
+
 #Preview {
-    NavigationStack {
         MainView(viewModel: .constant(UserViewModel()))
-    }
 }
 
 // ViewBuilder and Extra Functions
@@ -127,8 +78,8 @@ extension MainView {
                 print(error)
             }
         }
-        
     }
+    
     func getUserPosts() async {
         viewModel.gettingUserPosts = true
         defer {
@@ -140,6 +91,7 @@ extension MainView {
             print(("GETTING_USER_POSTS_FAILED"))
         }
     }
+    
     func getAllPosts() {
         Task {
             do {
@@ -158,6 +110,76 @@ extension MainView {
             ProgressView()
         }
     }
+    
+    @ViewBuilder
+    func toolbarContent() -> some View {
+        if viewModel.fetchingUserProfile == false {
+            EditButton()
+            Menu("", systemImage: "gear") {
+                addPostButton()
+                Button("Edit Posts", systemImage: "pencil") {
+                    editingPost.toggle()
+                }
+                Button("Delete All Users Posts", systemImage: "trash") {
+                    Task {
+                        await viewModel.deleteAllPosts()
+                        try await viewModel.getUserPosts(userSecret: viewModel.user.secret, userID: viewModel.userProfile.userUUID)
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func postView(post: Post, editingPost: Bool) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(post.title)
+                    .fontWeight(.bold)
+                Spacer()
+                VStack {
+                    if editingPost {
+                        Button("Edit") {
+                            editPostSheet.toggle()
+                        }
+                        .sheet(isPresented: $editPostSheet) {
+                            EditPostView(post: post, viewModel: $viewModel)
+                        }
+                    }
+                    
+                    HStack {
+                        Text("ID: ")
+                            .font(.caption)
+                        Text("\(post.postid)")
+                            .font(.caption)
+                    }
+                }
+            }
+            Text(post.body)
+                .padding(.bottom, 10)
+            HStack {
+                HStack {
+                    Text("Comments Count: ")
+                        .font(.footnote)
+                    Text("\(post.numComments)")
+                        .font(.footnote)
+                }
+                HStack {
+                    Text("Likes: ")
+                        .font(.footnote)
+                    Text("\(post.likes)")
+                        .font(.footnote)
+                }
+            }
+            HStack {
+                Text("Created At: ")
+                    .font(.footnote)
+                Text(post.createdDate)
+                    .font(.footnote)
+            }
+        }
+    }
+    
     @ViewBuilder
     func defaultPersonImage() -> some View {
         ZStack {
@@ -169,34 +191,37 @@ extension MainView {
                 .frame(width: 45, height: 45)
         }
     }
+    
     @ViewBuilder
     func addPostButton() -> some View {
         Button {
             newPostSheet.toggle()
             print(newPostSheet)
         } label: {
+            Image(systemName: "plus")
             Text("New Post")
         }
     }
+    
     @ViewBuilder
     func empyPostView() -> some View {
-        
         Text("No Posts yet!!")
             .font(.largeTitle)
     }
+    
     @ViewBuilder
     func userPhotoAndName() -> some View {
         HStack {
             defaultPersonImage()
-                .padding(.trailing, 75)
-            VStack {
-                
+            VStack(alignment: .leading) {
                 Text(viewModel.userProfile.firstName + " " + viewModel.userProfile.lastName)
                     .font(.largeTitle)
                 Text("@" + viewModel.userProfile.userName)
+                    .foregroundStyle(.blue)
             }
         }
     }
+    
     @ViewBuilder
     func techInterestsAndBio() -> some View {
         VStack {
@@ -212,10 +237,10 @@ extension MainView {
             }
         }
     }
+    
     @ViewBuilder
     func profileView() -> some View {
         userPhotoAndName()
-        techInterestsAndBio()
     }
 }
 

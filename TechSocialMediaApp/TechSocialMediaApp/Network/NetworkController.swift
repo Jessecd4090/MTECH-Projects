@@ -53,7 +53,6 @@ struct NetworkController {
         // Ensure we have a good response
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.couldNotGetUser
-            
         }
         
         // Decode our response data to usable object
@@ -92,8 +91,6 @@ struct NetworkController {
         let (data, response) = try await session.data(from: url)
         // Check response
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            let httpResponse = response as? HTTPURLResponse
-            print(httpResponse!)
             throw NetworkError.couldNotGetPosts
         }
         // Convert data into some object
@@ -131,8 +128,6 @@ struct NetworkController {
         let (data, response) = try await session.data(from: url)
         // Check response
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            let httpResponse = response as? HTTPURLResponse
-            print(httpResponse!)
             throw NetworkError.couldNotGetPosts
         }
         // Convert data into some object
@@ -177,8 +172,6 @@ struct NetworkController {
         
         // Check response and ensure good status code
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            let httpResponse = response as? HTTPURLResponse
-            print("Status Code: \(String(describing: httpResponse?.statusCode))")
             throw NetworkError.badResponse
         }
         
@@ -209,8 +202,6 @@ struct NetworkController {
         let (data, response) = try await session.data(for: request)
         // Ensure that we have a good status code
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 else {
-            let httpResponse = response as? HTTPURLResponse
-            print("Status Code: \(String(describing: httpResponse?.statusCode))")
             throw NetworkError.badResponse
         }
         
@@ -246,7 +237,6 @@ struct NetworkController {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.badResponse
         }
-        print(httpResponse.statusCode)
     }
     
     func editProfile(secret: UUID, profile: UserProfile) async throws -> UserProfile {
@@ -274,7 +264,6 @@ struct NetworkController {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.badResponse
         }
-        print(httpResponse.statusCode)
         
         let updatedProfile = try JSONDecoder().decode(UserProfile.self, from: data)
         return updatedProfile

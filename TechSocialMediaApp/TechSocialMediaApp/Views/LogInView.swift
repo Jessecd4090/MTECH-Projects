@@ -70,7 +70,7 @@ struct LogInView: View {
 #if DEBUG
             email = "jestindorius@gmail.com"
             password = "Buvvyw-wynpe0-wecbuh"
-            await signInButtonTapped(email: email, password: password)
+//            await signInButtonTapped(email: email, password: password)
 #endif
         }
         //        .onAppear {

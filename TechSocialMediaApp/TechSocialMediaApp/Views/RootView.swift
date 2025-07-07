@@ -14,9 +14,10 @@ struct RootView: View {
     var body: some View {
         VStack {
             if userViewModel.isAuthenticated == true {
-                NavigationStack {
-                    MainView(viewModel: $userViewModel)
-                }
+//                NavigationStack {
+//                    MainView(viewModel: $userViewModel)
+                    MultiView(viewModel: $userViewModel)
+//                }
             } else {
                 LogInView(viewModel: $userViewModel)
             }
