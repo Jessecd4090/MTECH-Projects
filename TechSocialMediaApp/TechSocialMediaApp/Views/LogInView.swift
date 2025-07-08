@@ -1,9 +1,9 @@
-//
-//  ContentView.swift
-//  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 6/19/25.
-//
+    //
+    //  ContentView.swift
+    //  TechSocialMediaApp
+    //
+    //  Created by Jestin Dorius on 6/19/25.
+    //
 
 import SwiftUI
 
@@ -70,20 +70,20 @@ struct LogInView: View {
 #if DEBUG
             email = "jestindorius@gmail.com"
             password = "Buvvyw-wynpe0-wecbuh"
-//            await signInButtonTapped(email: email, password: password)
+            await signInButtonTapped(email: email, password: password)
 #endif
         }
-        //        .onAppear {
-        //#if DEBUG
-        //            //        Uncomment the three lines below and enter your credentials to
-        //            //        automatically sign in everytime you launch the app.
-        //
-        //                email = "jestindorius@gmail.com"
-        //                password = "Buvvyw-wynpe0-wecbuh"
-        //                signInButtonTapped()
-        //
-        //#endif
-        //        }
+            //        .onAppear {
+            //#if DEBUG
+            //            //        Uncomment the three lines below and enter your credentials to
+            //            //        automatically sign in everytime you launch the app.
+            //
+            //                email = "jestindorius@gmail.com"
+            //                password = "Buvvyw-wynpe0-wecbuh"
+            //                signInButtonTapped()
+            //
+            //#endif
+            //        }
     }
     func signInButtonTapped(email: String, password: String) async {
         Task {
@@ -95,20 +95,6 @@ struct LogInView: View {
                 errorMessage = "Invalid Username or Password"
             }
         }
-        
-        //        isLoading = true
-        //        Task {
-        //            defer {
-        //                isLoading = false
-        //            }
-        //            do {
-        //                // Make the API Call
-        //                loggedInUser = try await authenticationController.signIn(email: email, password: password)
-        //            } catch {
-        //                print(error)
-        //                errorMessage = "Invalid Username or Password"
-        //            }
-        //        }
     }
 }
 

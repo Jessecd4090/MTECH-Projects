@@ -17,3 +17,5 @@ struct Post: Encodable, Decodable {
     var numComments: Int
     var createdDate: String
 }
+
+

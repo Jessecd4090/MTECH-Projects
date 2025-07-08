@@ -1,9 +1,9 @@
-//
-//  EditPostView.swift
-//  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 7/2/25.
-//
+    //
+    //  EditPostView.swift
+    //  TechSocialMediaApp
+    //
+    //  Created by Jestin Dorius on 7/2/25.
+    //
 
 import SwiftUI
 

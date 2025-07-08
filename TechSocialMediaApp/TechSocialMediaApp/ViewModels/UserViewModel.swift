@@ -1,9 +1,9 @@
-//
-//  UserViewModel.swift
-//  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 6/23/25.
-//
+    //
+    //  UserViewModel.swift
+    //  TechSocialMediaApp
+    //
+    //  Created by Jestin Dorius on 6/23/25.
+    //
 import SwiftUI
 
 @MainActor
@@ -29,14 +29,14 @@ class UserViewModel {
     private let authenticationController = AuthController()
     private let networkController = NetworkController()
     
-    // Auth func
+        // Auth func
     func login(email: String, password: String) async throws -> User {
         fetchingUser = true
         defer {
             fetchingUser = false
         }
         do {
-            // Get user first
+                // Get user first
             user = try await authenticationController.signIn(email: email, password: password)
             isAuthenticated = true
             return user
@@ -63,7 +63,7 @@ class UserViewModel {
             allPosts = try await networkController.getFirstTwentyPosts(userSecret: userSecret)
             let secondArrayOfPosts = try await networkController.getSecondTwentyPosts(userSecret: userSecret)
             allPosts += secondArrayOfPosts
-//            allPosts.append(secondArrayOfPosts)
+                //            allPosts.append(secondArrayOfPosts)
             return allPosts
         } catch {
             print("GETTING_USER_POSTS_FAILED: \(error)")
@@ -91,13 +91,13 @@ class UserViewModel {
     }
     
     func deletePosts(at offsets: IndexSet) async {
-        // 1. Extract postIDs to delete
+            // 1. Extract postIDs to delete
         let postIDsToDelete = offsets.map { usersPosts[$0].postid }
         
-        // 2. Remove locally first for instant UI update
+            // 2. Remove locally first for instant UI update
         usersPosts.remove(atOffsets: offsets)
         
-        // 3. Call API to delete remotely
+            // 3. Call API to delete remotely
         do {
             try await networkController.deletePost(userSecret: user.secret, postIDs: postIDsToDelete)
             print("POSTS_DELETED")
@@ -125,7 +125,31 @@ class UserViewModel {
         do {
             try await networkController.editPost(userSecret: secret, post: post)
         } catch {
-            print("EDITING_POST_FAILED")
+            print("EDITING_POST_FAILED \(error)")
         }
+    }
+    
+    func editProfile(secret: UUID, userName: String, bio: String, techInterests: String) async {
+        do {
+            try await networkController.editProfile(
+                secret: secret,
+                userName: userName,
+                bio: bio,
+                techInterests: techInterests)
+        } catch {
+            print("EDITING_PROFILE_FAILED: \(error)")
+        }
+    }
+    
+    func getComments(secret: UUID, postid: Int) async -> [Comments] {
+        var comments = [Comments]()
+        do {
+            comments = try await networkController
+                .getComments(secret: secret, postid: postid)
+            return comments
+        } catch {
+            print("GETTING_COMMENTS_FAILED: \(error)")
+        }
+        return comments
     }
 }

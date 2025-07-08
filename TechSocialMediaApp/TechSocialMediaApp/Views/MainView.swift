@@ -1,9 +1,9 @@
-//
-//  MainView.swift
-//  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 6/19/25.
-//
+    //
+    //  MainView.swift
+    //  TechSocialMediaApp
+    //
+    //  Created by Jestin Dorius on 6/19/25.
+    //
 import SwiftUI
 
 struct MainView: View {
@@ -12,47 +12,78 @@ struct MainView: View {
     @State var editPostSheet = false
     @State var alertShowing = false
     @State var editingPost = false
+    @State var editingProfile = false
+    @State var newBio = ""
+    @State var newInterests = ""
+    @State var comments = [Comments]()
     var body: some View {
-            VStack {
-                if viewModel.fetchingUserProfile {
-                    progressView()
-                } else {
-                    VStack {
-                        profileView()
-                            .padding(.trailing, 145)
+        VStack {
+            if viewModel.fetchingUserProfile {
+                progressView()
+            } else {
+                VStack {
+                    profileView()
+                        .padding(.trailing, 145)
+                    if !editingProfile {
                         techInterestsAndBio()
-                        VStack {
-                            Text("Posts")
-                                .font(.largeTitle)
-                        }
-                        Spacer()
-                        if viewModel.usersPosts.isEmpty {
-                            empyPostView()
-                            Spacer()
-                        } else {
-                            List {
-                                ForEach(viewModel.usersPosts, id: \.postid) { post in
-                                    postView(post: post, editingPost: editingPost)
-                                }
-                                .onDelete { indexSet in
-                                    Task {
-                                        await viewModel.deletePosts(at: indexSet)
+                    } else {
+                        TextField("Bio: ", text: $newBio)
+                            .border(Color.gray.opacity(0.5))
+                            .frame(width: 250)
+                        TextField("Interests: ", text: $newInterests)
+                            .border(Color.gray.opacity(0.5))
+                            .frame(width: 250)
+                        Button("Save") {
+                            if !newBio.isEmpty && !newInterests.isEmpty {
+                                Task {
+                                    defer {
+                                        editingProfile.toggle()
                                     }
+                                    await viewModel
+                                        .editProfile(
+                                            secret: viewModel.user.secret,
+                                            userName: viewModel.userProfile.userName,
+                                            bio: newBio,
+                                            techInterests: newInterests)
+                                    viewModel.userProfile = try await viewModel
+                                        .fetchUserProfile(
+                                            userUUID: viewModel.user.userUUID,
+                                            userSecret: viewModel.user.secret)
+                                }
+                            } else {
+                                editingProfile.toggle()
+                            }
+                        }
+                    }
+                    VStack {
+                        Text("Posts")
+                            .font(.largeTitle)
+                    }
+                    Spacer()
+                    if viewModel.usersPosts.isEmpty {
+                        empyPostView()
+                        Spacer()
+                    } else {
+                        List {
+                            ForEach(viewModel.usersPosts, id: \.postid) { post in
+                                postView(post: post, editingPost: editingPost)
+                            }
+                            .onDelete { indexSet in
+                                Task {
+                                    await viewModel.deletePosts(at: indexSet)
                                 }
                             }
                         }
                     }
                 }
             }
-        
-//        .toolbarVisibility(.visible, for: .navigationBar)
+        }
         .toolbar(content: {
             toolbarContent()
         })
         .sheet(isPresented: $newPostSheet) {
             NewPostView(viewModel: $viewModel)
         }
-        
         .task {
             await getUserProfile()
             await getUserPosts()
@@ -61,10 +92,10 @@ struct MainView: View {
 }
 
 #Preview {
-        MainView(viewModel: .constant(UserViewModel()))
+    MainView(viewModel: .constant(UserViewModel()))
 }
 
-// ViewBuilder and Extra Functions
+    // ViewBuilder and Extra Functions
 extension MainView {
     func getUserProfile() async {
         if viewModel.userProfile.userName.isEmpty {
@@ -135,7 +166,7 @@ extension MainView {
         VStack(alignment: .leading) {
             HStack {
                 Text(post.title)
-                    .fontWeight(.bold)
+                    .font(.title2)
                 Spacer()
                 VStack {
                     if editingPost {
@@ -150,8 +181,10 @@ extension MainView {
                     HStack {
                         Text("ID: ")
                             .font(.caption)
+                            .foregroundStyle(.blue)
                         Text("\(post.postid)")
                             .font(.caption)
+                            .foregroundStyle(.blue)
                     }
                 }
             }
@@ -159,11 +192,12 @@ extension MainView {
                 .padding(.bottom, 10)
             HStack {
                 HStack {
-                    Text("Comments Count: ")
+                    Text("Created At: ")
                         .font(.footnote)
-                    Text("\(post.numComments)")
+                    Text(post.createdDate)
                         .font(.footnote)
                 }
+                
                 HStack {
                     Text("Likes: ")
                         .font(.footnote)
@@ -171,10 +205,35 @@ extension MainView {
                         .font(.footnote)
                 }
             }
-            HStack {
-                Text("Created At: ")
-                    .font(.footnote)
-                Text(post.createdDate)
+            .onAppear {
+                if post.numComments > 0 {
+                    Task {
+                        comments = await viewModel
+                            .getComments(
+                                secret: viewModel.user.secret,
+                                postid: post.postid)
+                    }
+                }
+            }
+            if comments.isEmpty {
+                HStack {
+                    Text("Comments Count: ")
+                        .font(.footnote)
+                    Text("\(post.numComments)")
+                        .font(.footnote)
+                }
+            }
+            if !comments.isEmpty {
+                Text("Comments: ")
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.purple, .yellow, .blue, .red],
+                            startPoint: .top,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                Text(comments[0].body)
+                Text("By: " + comments[0].userName)
                     .font(.footnote)
             }
         }
@@ -234,6 +293,9 @@ extension MainView {
                 Text("Tech Interests: ")
                     .fontWeight(.bold)
                 Text("\(viewModel.userProfile.techInterests ?? "Empty")")
+            }
+            Button("Edit Profile", systemImage: "pencil") {
+                editingProfile.toggle()
             }
         }
     }

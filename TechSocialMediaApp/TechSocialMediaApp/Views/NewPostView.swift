@@ -1,9 +1,9 @@
-//
-//  NewPostView.swift
-//  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 6/23/25.
-//
+    //
+    //  NewPostView.swift
+    //  TechSocialMediaApp
+    //
+    //  Created by Jestin Dorius on 6/23/25.
+    //
 
 import SwiftUI
 

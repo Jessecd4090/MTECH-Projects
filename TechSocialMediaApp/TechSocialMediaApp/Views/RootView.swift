@@ -1,9 +1,9 @@
 //
 //  RootView.swift
 //  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 6/19/25.
-//
+    //
+    //  Created by Jestin Dorius on 6/19/25.
+    //
 import SwiftUI
 
 struct RootView: View {
@@ -14,15 +14,11 @@ struct RootView: View {
     var body: some View {
         VStack {
             if userViewModel.isAuthenticated == true {
-//                NavigationStack {
-//                    MainView(viewModel: $userViewModel)
-                    MultiView(viewModel: $userViewModel)
-//                }
+                MultiView(viewModel: $userViewModel)
             } else {
                 LogInView(viewModel: $userViewModel)
             }
         }
-        
     }
 }
 

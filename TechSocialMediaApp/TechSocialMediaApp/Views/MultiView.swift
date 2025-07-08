@@ -1,9 +1,9 @@
-//
-//  MultiView.swift
-//  TechSocialMediaApp
-//
-//  Created by Jestin Dorius on 7/6/25.
-//
+    //
+    //  MultiView.swift
+    //  TechSocialMediaApp
+    //
+    //  Created by Jestin Dorius on 7/6/25.
+    //
 
 import SwiftUI
 
