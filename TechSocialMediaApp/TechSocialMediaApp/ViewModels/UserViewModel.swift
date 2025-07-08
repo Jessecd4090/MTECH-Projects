@@ -52,7 +52,7 @@ class UserViewModel {
             userProfile = try await networkController.getUserProfile(userUUID: userUUID, userSecret: userSecret)
             return userProfile
         } catch {
-            print("Getting User Profile Failed: error \(error)")
+            print("GETTING_USER_POSTS_FAILED: \(error)")
             self.error = error
         }
         return userProfile
@@ -63,10 +63,9 @@ class UserViewModel {
             allPosts = try await networkController.getFirstTwentyPosts(userSecret: userSecret)
             let secondArrayOfPosts = try await networkController.getSecondTwentyPosts(userSecret: userSecret)
             allPosts += secondArrayOfPosts
-                //            allPosts.append(secondArrayOfPosts)
             return allPosts
         } catch {
-            print("GETTING_USER_POSTS_FAILED: \(error)")
+            print("GETTING_ALL_POSTS_FAILED: \(error)")
             self.error = error
         }
         return allPosts
@@ -83,7 +82,6 @@ class UserViewModel {
     func createPost(secret: UUID, title: String, body: String) async throws {
         do {
             let data = try await networkController.createPost(userSecret: secret, title: title, body: body)
-            print(data)
         } catch {
             print("CREATING_POST_FAILED: \(error)")
             self.error = error
@@ -100,8 +98,6 @@ class UserViewModel {
             // 3. Call API to delete remotely
         do {
             try await networkController.deletePost(userSecret: user.secret, postIDs: postIDsToDelete)
-            print("POSTS_DELETED")
-            print(usersPosts.count)
             try await getUserPosts(userSecret: user.secret, userID: userProfile.userUUID)
         } catch {
             print("DELETING_POSTS_FAILED: \(error)")
@@ -115,7 +111,6 @@ class UserViewModel {
         }
         do {
             try await networkController.deletePost(userSecret: user.secret, postIDs: postIDs)
-            print("POST_DELETED!!!")
         } catch {
             print("DELETING_POST_FAILED: \(error)")
         }
