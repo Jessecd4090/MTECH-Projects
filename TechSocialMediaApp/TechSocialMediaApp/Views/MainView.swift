@@ -15,6 +15,7 @@ struct MainView: View {
     @State var editingProfile = false
     @State var newBio = ""
     @State var newInterests = ""
+    @State var newUsername = ""
     @State var comments = [Comments]()
     var body: some View {
         VStack {
@@ -34,15 +35,18 @@ struct MainView: View {
                             .border(Color.gray.opacity(0.5))
                             .frame(width: 250)
                         Button("Save") {
-                            if !newBio.isEmpty && !newInterests.isEmpty {
+                            if !newBio.isEmpty && !newInterests.isEmpty && !newUsername.isEmpty {
                                 Task {
                                     defer {
                                         editingProfile.toggle()
+                                        newUsername = ""
+                                        newBio = ""
+                                        newInterests = ""
                                     }
                                     await viewModel
                                         .editProfile(
                                             secret: viewModel.user.secret,
-                                            userName: viewModel.userProfile.userName,
+                                            userName: newUsername,
                                             bio: newBio,
                                             techInterests: newInterests)
                                     viewModel.userProfile = try await viewModel
@@ -275,8 +279,12 @@ extension MainView {
             VStack(alignment: .leading) {
                 Text(viewModel.userProfile.firstName + " " + viewModel.userProfile.lastName)
                     .font(.largeTitle)
-                Text("@" + viewModel.userProfile.userName)
-                    .foregroundStyle(.blue)
+                if !editingProfile {
+                    Text("@" + viewModel.userProfile.userName)
+                        .foregroundStyle(.blue)
+                } else {
+                    TextField("Username: ", text: $newUsername)
+                }
             }
         }
     }
